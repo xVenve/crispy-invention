@@ -310,6 +310,7 @@ GitHub.sublime-settings
 *.app
 
 .vscode/
+.idea/
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
