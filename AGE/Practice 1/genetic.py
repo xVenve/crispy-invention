@@ -3,80 +3,98 @@ import numpy as np
 import requests
 
 NUM_STATIONS = 4
-SIZE_POBLATION = 6
+SIZE_POPULATION = 50
 
 web_to_request = "http://memento.evannai.inf.uc3m.es/age/test?c="
 
 
-def initial_poblation():
-    arr = np.zeros((SIZE_POBLATION, NUM_STATIONS * 16), dtype=int)
-    for i in range(0, len(arr)):
-        for j in range(0, len(arr[0])):
-            arr[i][j] = random.randint(0, 1)
-    return arr
+def initial_population():
+    population = np.zeros((SIZE_POPULATION, NUM_STATIONS * 16), dtype=int)
+    for i in range(0, len(population)):
+        for j in range(0, len(population[0])):
+            population[i][j] = random.randint(0, 1)
+    return population
 
 
-def evaluate_poblation(array):
-    evaluation = []
-    for i in range(0, len(array)):
-        string_ints = [str(int) for int in array[i]]
-        chromosome = ''.join(string_ints)
-        request_answer = requests.get(web_to_request + chromosome)
-        evaluation.append(request_answer.text)
-    return evaluation
+def evaluate_population(population):
+    evaluations = []
+    for i in population:
+        chromosome = list_to_string(i)
+        evaluation = requests.get(web_to_request + chromosome)
+        evaluations.append(float(evaluation.text))
+    return evaluations
 
 
-def tournament(array, evaluation, num_cand):
-    new_poblation = []
-    for k in range(0, SIZE_POBLATION):
+def list_to_string(list):
+    return ''.join([str(v) for v in list])
+
+
+def tournament_selection(population, evaluation, num_candidates):
+    new_population = []
+    for k in range(0, SIZE_POPULATION):
         candidates = []
-        for i in range(0, num_cand):
-            n = random.randint(0, len(array) - 1)
+        for i in range(0, num_candidates):
+            n = random.randint(0, len(population) - 1)
             candidates.append([n, evaluation[n]])
-
-        min = None
+        min_evaluation = None
         min_index = None
-        for j in range(0, num_cand):
-            if min is None or min > candidates[j][1]:
-                min = candidates[j][1]
+        for j in range(0, num_candidates):
+            if min_evaluation is None or min_evaluation > candidates[j][1]:
+                min_evaluation = candidates[j][1]
                 min_index = candidates[j][0]
-        new_poblation.append(array[min_index])
-    return new_poblation
+        new_population.append(population[min_index])
+    return new_population
 
 
-def cruce_uniforme(array):
-    new_poblation = []
-    for i in range(0, len(array), 2):
+def uniform_crossover(population):
+    new_population = []
+    for i in range(0, len(population), 2):
         a = []
         b = []
-        for j in range(0, len(array[0])):
+        for j in range(0, len(population[0])):
             n = random.randint(0, 1)
             if n == 0:
-                a.append(array[i][j])
-                b.append(array[i + 1][j])
+                a.append(population[i][j])
+                b.append(population[i + 1][j])
             else:
-                b.append(array[i][j])
-                a.append(array[i + 1][j])
-        new_poblation.append(a)
-        new_poblation.append(b)
-    return new_poblation
+                b.append(population[i][j])
+                a.append(population[i + 1][j])
+        new_population.append(a)
+        new_population.append(b)
+    return new_population
 
 
-def mutation(array, factor):
-    for i in range(0, len(array)):
-        for j in range(0, len(array[0])):
-            n = random.randint(1, 100)
-            if n <= factor:
-                array[i][j] = 1 - array[i][j]
-    return array
+def mutation(population, factor):
+    for i in range(0, len(population)):
+        for j in range(0, len(population[0])):
+            n = random.randint(0, 100)
+            if n < factor:
+                population[i][j] = 1 - population[i][j]
+    return population
 
 
-p = initial_poblation()
-e = evaluate_poblation(p)
-for i in range(0, 100):
-    b = tournament(p, e, 3)
-    c = cruce_uniforme(b)
-    p = mutation(c, 5)
-    e = evaluate_poblation(p)
+def get_best_chromosome(population, evaluations):
+    min_value = min(evaluations)
+    min_index = evaluations.index(min_value)
+    return min_value, population[min_index]
 
-print(evaluate_poblation(p))
+
+def AG(cycles, size_tournament, mutation_factor):
+    output_file = open('output_genetic_algorithm.txt', 'w')
+
+    population = initial_population()
+    evaluations = evaluate_population(population)
+    for i in range(0, cycles):
+        population_post_selection = tournament_selection(population, evaluations, size_tournament)
+        population_post_crossover = uniform_crossover(population_post_selection)
+        population = mutation(population_post_crossover, mutation_factor)
+        evaluations = evaluate_population(population)
+
+        best_fitness, best_chromosome = get_best_chromosome(population, evaluations)
+        print("Generación " + str(i) + ": " + str(best_fitness) + "\t" + list_to_string(best_chromosome))
+        output_file.write(str(best_fitness) + " " + list_to_string(best_chromosome) + "\n")
+    output_file.close()
+
+
+if __name__ == '__main__':
+    AG(50, 5, 5)
