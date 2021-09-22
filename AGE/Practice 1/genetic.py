@@ -3,7 +3,7 @@ import numpy as np
 import requests
 
 NUM_STATIONS = 4
-SIZE_POPULATION = 50
+SIZE_POPULATION = 100
 
 web_to_request = "http://memento.evannai.inf.uc3m.es/age/test?c="
 
@@ -25,8 +25,8 @@ def evaluate_population(population):
     return evaluations
 
 
-def list_to_string(list):
-    return ''.join([str(v) for v in list])
+def list_to_string(list_of_integers):
+    return ''.join([str(v) for v in list_of_integers])
 
 
 def tournament_selection(population, evaluation, num_candidates):
@@ -97,4 +97,4 @@ def AG(cycles, size_tournament, mutation_factor):
 
 
 if __name__ == '__main__':
-    AG(50, 5, 5)
+    AG(100, 20, 5)
