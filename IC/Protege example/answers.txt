@@ -1,0 +1,15 @@
+1. 
+	a) Esto se ha hecho para que cuando se cree una Winery y se elija la location se pueda elegir entre unas determinadas regiones, estas organizadas jerarquicamente.
+	b) Representa los valores permitidos para location de las Winery.
+	c) En la parte de Wine region se representa la región Margaux y la parte de Wine un vino rojo especifico de Margaux, lo que les relaciona es que aquellos vinos de la región Margaux seran de ese tipo.
+	
+2. Se añade la region Ribera del Duero y Rioja dentro de España, los tipos de uvas tempranillo y tinta fina. Se añade la bodega con su nombre y localización, mas tarde se añádiran los vinos que producen. Creamos los vinos ocn su tipo y uvas.
+
+3.
+	a) En Wine regions añadimos Rioja y Catilla y Leon, dentro de esta ultima estara ribera del Ribera del Duero y Valbuena del Duero
+	b) Mediante un slot tipo simbol con esos 3 posibles valores.
+	c) Como un number que contiene el valor
+	d) Como vinos del tipo Vega Sicilia dentro de Red wine
+	e) Como una serie de caracteristicas que contienen el porcentaje, uv1%, uv2% y uv3%
+	
+4. Se generan 2 archivos para CLIPS, un .pins que contiene las instancias y el .pont que contiene la declaración de las clases.
