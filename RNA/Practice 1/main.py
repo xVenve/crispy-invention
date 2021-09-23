@@ -15,6 +15,7 @@ def desnormalization(output):
 def createDataTraining(path):
     data = numpy.array(list(csv.reader(open(path, "rt"), delimiter=","))).astype("float")
     weights = numpy.random.uniform(-1, 1, len(data[0]))  # Podemos cambiar el rango por -5, +5
+
     # weights = [-0.41319586, 0.25443957, 0.94954164, -0.80395249, -0.14498576, 0.60797836, 0.11754749, 0.05899777, 0.58135899]
     return data, weights
 
@@ -68,7 +69,7 @@ def ADALINE(path_training, path_validation, path_test, gamma, cycles):
             validation_output = calculateOutput(data_validation[h], weights)
             validation_array = numpy.append(validation_array, validation_output)
         mse_validation, mae_validation = calculateErrors(data_validation, validation_array)
-        print(f"{mae_training:.20f}", f"{mae_validation:.20f}")
+        print(f"{mse_training:.20f}", f"{mse_validation:.20f}")
 
     output_file = open("output_" + str(cycles) + "_" + str(gamma) + ".txt", "w")
     for k in range(0, len(data_test)):
@@ -77,7 +78,7 @@ def ADALINE(path_training, path_validation, path_test, gamma, cycles):
         test_array = numpy.append(test_array, test_output)
 
     mse_test, mae_test = calculateErrors(data_test, test_array)
-    print("ERROR FINAL DEL TEST ------->", f"{mae_test:.20f}")
+    print("ERROR FINAL DEL TEST ------->", f"{mse_test:.20f}")
     output_file.close()
 
     model_file = open("model_" + str(cycles) + "_" + str(gamma) + ".txt", "w")
@@ -86,4 +87,4 @@ def ADALINE(path_training, path_validation, path_test, gamma, cycles):
 
 
 if __name__ == "__main__":
-    ADALINE(r".\training.csv", r".\validation.csv", r".\test.csv", 0.03, 1000)
+    ADALINE(r".\training.csv", r".\validation.csv", r".\test.csv", 0.0005, 2500)
