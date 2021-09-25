@@ -81,7 +81,8 @@ def get_best_chromosome(population, evaluations):
 
 def AG(cycles, size_tournament, mutation_factor):
     output_file = open('output_genetic_algorithm.txt', 'w')
-
+    absolute_best_fitness = None
+    absolute_best_chromosome = None
     population = initial_population()
     evaluations = evaluate_population(population)
     for i in range(0, cycles):
@@ -91,8 +92,14 @@ def AG(cycles, size_tournament, mutation_factor):
         evaluations = evaluate_population(population)
 
         best_fitness, best_chromosome = get_best_chromosome(population, evaluations)
-        print("Generación " + str(i) + ": " + str(best_fitness) + "\t" + list_to_string(best_chromosome))
+        if absolute_best_fitness is None or absolute_best_fitness > best_fitness:
+            absolute_best_fitness = best_fitness
+            absolute_best_chromosome = best_chromosome
+        print("Generación " + str(i) + ": " + str(best_fitness) + "\t" + list_to_string(best_chromosome) +
+              "\nMejor absoluto: " + str(absolute_best_fitness) + "\t" + list_to_string(absolute_best_chromosome))
         output_file.write(str(best_fitness) + " " + list_to_string(best_chromosome) + "\n")
+    output_file.write(
+        "Mejor resultado: " + str(absolute_best_fitness) + " " + list_to_string(absolute_best_chromosome) + "\n")
     output_file.close()
 
 
