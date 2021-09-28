@@ -87,4 +87,4 @@ def ADALINE(path_training, path_validation, path_test, gamma, cycles):
 
 
 if __name__ == "__main__":
-    ADALINE(r".\training.csv", r".\validation.csv", r".\test.csv", 0.0005, 2500)
+    ADALINE(r".\training.csv", r".\validation.csv", r".\test.csv", 0.0005, 1000)
