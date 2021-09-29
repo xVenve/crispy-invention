@@ -9,7 +9,6 @@ web_to_request = "http://memento.evannai.inf.uc3m.es/age/alfa?c="
 web_to_test = "http://memento.evannai.inf.uc3m.es/age/test?c="
 
 
-
 def initial_population():
     population = np.zeros((SIZE_POPULATION, NUM_STATIONS * 16), dtype=int)
     for i in range(0, len(population)):
@@ -18,7 +17,7 @@ def initial_population():
     return population
 
 
-def evaluate_population(population, numEvaluations):
+def evaluate_population(population, num_evaluations):
     evaluations = []
     for i in population:
         chromosome = list_to_string(i)
@@ -29,8 +28,8 @@ def evaluate_population(population, numEvaluations):
             except:
                 pass
         evaluations.append(float(evaluation.text))
-        numEvaluations = numEvaluations + 1
-    return evaluations, numEvaluations
+        num_evaluations = num_evaluations + 1
+    return evaluations, num_evaluations
 
 
 def list_to_string(list_of_integers):
@@ -87,18 +86,20 @@ def get_best_chromosome(population, evaluations):
     return min_value, population[min_index]
 
 
-def AG(cycles, size_tournament, mutation_factor):
-    output_file = open('output_genetic_algorithm1.txt', 'w')
+def AG(cycles, size_tournament, mutation_factor, test_iteration):
+    output_file = open('output_genetic_algorithm' + "_" +
+                       str(cycles) + "_" + str(size_tournament) + "_" + str(mutation_factor) + "_" + str(test_iteration)
+                       + '.txt', 'w')
     absolute_best_fitness = None
     absolute_best_chromosome = None
     population = initial_population()
-    numEvaluations = 0
-    evaluations, numEvaluations = evaluate_population(population, numEvaluations)
+    num_evaluations = 0
+    evaluations, num_evaluations = evaluate_population(population, num_evaluations)
     for i in range(0, cycles):
         population_post_selection = tournament_selection(population, evaluations, size_tournament)
         population_post_crossover = uniform_crossover(population_post_selection)
         population = mutation(population_post_crossover, mutation_factor)
-        evaluations, numEvaluations = evaluate_population(population, numEvaluations)
+        evaluations, num_evaluations = evaluate_population(population, num_evaluations)
 
         best_fitness, best_chromosome = get_best_chromosome(population, evaluations)
         if absolute_best_fitness is None or absolute_best_fitness > best_fitness:
@@ -106,14 +107,13 @@ def AG(cycles, size_tournament, mutation_factor):
             absolute_best_chromosome = best_chromosome
         print("Generación " + str(i) + ": " + str(best_fitness) + "\t" + list_to_string(best_chromosome) +
               "\nMejor absoluto: " + str(absolute_best_fitness) + "\t" + list_to_string(absolute_best_chromosome))
-        output_file.write(str(numEvaluations) + " " + str(best_fitness) + " " + list_to_string(best_chromosome) + "\n")
+        output_file.write(str(num_evaluations) + " " + str(best_fitness) + " " + list_to_string(best_chromosome) + "\n")
         if absolute_best_fitness == 0:
             break
-    print("Archivo escrito \n")
     output_file.write(
         "Mejor resultado: " + str(absolute_best_fitness) + " " + list_to_string(absolute_best_chromosome) + "\n")
     output_file.close()
 
 
 if __name__ == '__main__':
-    AG(100, 20, 1)
+    AG(100, 20, 1, 1)
