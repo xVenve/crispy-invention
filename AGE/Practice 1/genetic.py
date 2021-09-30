@@ -74,7 +74,7 @@ def uniform_crossover(population):
 def mutation(population, factor):
     for i in range(0, len(population)):
         for j in range(0, len(population[0])):
-            n = random.randint(0, 100)
+            n = np.random.rand() * 100
             if n < factor:
                 population[i][j] = 1 - population[i][j]
     return population

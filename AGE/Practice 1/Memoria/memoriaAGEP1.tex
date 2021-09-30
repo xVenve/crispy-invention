@@ -102,6 +102,57 @@ La salida que obtenemos para la primera estación es el cromosoma \textbf{000010
 Como se puede ver al realizarlo por fuerza bruta sin ningún tipo de heurística o sentido de si va en buena dirección. Los valores de fitness según progresan las evaluaciones van subiendo y bajando, suben según se van activando más sensores y al saltar a un 1 bit más da una bajada, al volver los valores a 0. Como la mejor evaluación es temprana se puede ver que se mantiene a lo largo de casi todo el proceso, aun obteniéndose pronto seguimos porque puede haber otra mejor, aunque finalmente no lo haya.
 
 \section{Programación Algoritmos Genéticos}
+Esta segunda parte…
+
+\subsection{Operadores genéticos}
+
+Selección
+
+Cruce
+
+Mutación
+
+Remplazo
+
+\subsection{Pruebas}
+Para empezar, los modelos  se han nombrado siguiendo una codificación con el siguiente formato XX\_YY\_ZZ, tal que:
+\begin{itemize}
+	\item XX: Número de generaciones generadas.
+	\item YY: Tamaño del conjunto de candidatos al hacer torneo para la selección.
+	\item ZZ: Porcentaje de mutaciones sobre la población.
+\end{itemize}
+
+Una vez aclarado esto podemos dar paso a los primeros modelos de prueba. Los parámetros seleccionados para estas primeras pruebas han sido 100 generaciones para cada uno, tamaños de torneo de 10, 20 y 34 individuos y porcentaje de mutación de 1 \% y 5 \%. Para dar consistencia a los resultados y evitar que por probabilidad hayan podido salir mejores o peores resultados se han realizado 5 ejecuciones para cada uno de estos modelos y se ha hecho la media. En el siguiente gráfico se pueden ver estos 6 modelos:
+
+\begin{figure}[H]
+	\ffigbox[\FBwidth]
+	{\caption{Fitness primeros modelos}}
+	{\includegraphics[scale=.8]{./img/first_models.jpg}}
+\end{figure}
+
+Podemos ver que en general aumentar el porcentaje de mutaciones empeora los resultados y que dentro de aquellos con un 1 \% de mutaciones el mejor aunque no por mucho es el de menor tamaño de torneo, 10 individuos, hasta este punto el mejor resultado ha sido el modelo 100\_10\_1 con un fitness de 0,838089054 en 10100 evaluaciones. Se puede ver a continuación que el fitness ha ido bajando más rápido al principio y que se ha estabilizado al final por lo que las 100 generaciones son todavía suficientes. 
+
+\begin{figure}[H]
+	\ffigbox[\FBwidth]
+	{\caption{Fitness vs Evaluaciones 100\_10\_1}}
+	{\includegraphics[scale=.65]{./img/100_10_1.jpg}}
+\end{figure}
+
+En vista de los resultados anteriores, se va a probar primero a reducir los tamaños de torneo a 6 y 4 individuos, se ha aumentado el número de generaciones (150) para que puedan seguir convergiendo con normalidad. En la siguiente grafica se pueden ver los resultados nuevos comparados con los previos para un tamaño diferente de torneo:
+
+GRAFICA
+
+
+Podemos apreciar que ... el mejor es... su grafica
+
+
+Ahora pasamos a buscar uno de los parámetros más importantes, el valor para la mutación, basado en la mejor prueba anterior se procede a reducir su valor a 0,5, 0,1 y 0,05. Para estas pruebas se ha aumentado el número de generaciones ya que en cada generación se realizan movimientos en el espacio de soluciones más pequeños. A continuación se presentan estos nuevos modelos:
+
+GRAFICA
+
+RESULTADOS TOTALES... PONER EL CROMOSOMA Y SU SIGNIFICADO... PROBAR HASTA 10 VECES
+JUSTIFICAR DESPUES DE CADA RESULTADO EL POR QUE
+
 
 
 \end{document}
