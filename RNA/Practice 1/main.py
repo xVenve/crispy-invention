@@ -15,8 +15,6 @@ def desnormalization(output):
 def createDataTraining(path):
     data = numpy.array(list(csv.reader(open(path, "rt"), delimiter=","))).astype("float")
     weights = numpy.random.uniform(-1, 1, len(data[0]))  # Podemos cambiar el rango por -5, +5
-
-    # weights = [-0.41319586, 0.25443957, 0.94954164, -0.80395249, -0.14498576, 0.60797836, 0.11754749, 0.05899777, 0.58135899]
     return data, weights
 
 
@@ -87,4 +85,4 @@ def ADALINE(path_training, path_validation, path_test, gamma, cycles):
 
 
 if __name__ == "__main__":
-    ADALINE(r".\training.csv", r".\validation.csv", r".\test.csv", 0.0005, 1000)
+    ADALINE(r".\training.csv", r".\validation.csv", r".\test.csv", 0.01, 20)
