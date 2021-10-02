@@ -116,4 +116,4 @@ def AG(cycles, size_tournament, mutation_factor, test_iteration):
 
 
 if __name__ == '__main__':
-    AG(100, 20, 1, 1)
+    AG(200, 10, 0.5, 1)
