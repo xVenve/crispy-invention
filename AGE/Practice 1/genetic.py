@@ -1,6 +1,8 @@
 import random
 import numpy as np
 import requests
+import threading
+
 
 NUM_STATIONS = 24
 SIZE_POPULATION = 100
@@ -116,4 +118,14 @@ def AG(cycles, size_tournament, mutation_factor, test_iteration):
 
 
 if __name__ == '__main__':
-    AG(200, 10, 0.5, 1)
+    a = threading.Thread(target=AG, args=(200, 5, 0.5, 1))
+    b = threading.Thread(target=AG, args=(200, 7, 0.5, 1))
+    c = threading.Thread(target=AG, args=(200, 10, 0.4, 1))
+    d = threading.Thread(target=AG, args=(200, 10, 0.6, 1))
+
+    a.start()
+    b.start()
+    c.start()
+    d.start()
+
+    # 0,834496454567
