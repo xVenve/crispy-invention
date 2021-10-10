@@ -102,7 +102,7 @@ La salida que obtenemos para la primera estación es el cromosoma \textbf{000010
 Como se puede ver al realizarlo por fuerza bruta sin ningún tipo de heurística o sentido de si va en buena dirección. Los valores de fitness según progresan las evaluaciones van subiendo y bajando, suben según se van activando más sensores y al saltar a un 1 bit más da una bajada, al volver los valores a 0. Como la mejor evaluación es temprana se puede ver que se mantiene a lo largo de casi todo el proceso, aun obteniéndose pronto seguimos porque puede haber otra mejor, aunque finalmente no lo haya.
 
 \section{Programación Algoritmos Genéticos}
-En esta sección resolverá el problema mediante algoritmos genéticos, que serán más eficaces que hacerlo mediante fuerza bruta. El problema se tratará ahora si de manera completa, es decir considerando las 24 estaciones meteorológicas y no solo las 1 o las 4 primeras, que como vimos en la sección era intratable con fuerza bruta.
+En esta sección resolverá el problema mediante algoritmos genéticos, que serán más eficaces que hacerlo mediante fuerza bruta. El problema se tratará ahora si de manera completa, es decir considerando las 24 estaciones de control de calidad del aire y no solo las 1 o las 4 primeras, que como vimos en la sección era intratable con fuerza bruta.
 
 Esta técnica nos permitirá teniendo un conjunto de soluciones mediante reproducción y variación de sus individuos, y guiados por la función de fitness localizar en el espacio de soluciones mejores soluciones.
 
@@ -125,7 +125,7 @@ El procedimiento del algoritmo se ha implementado en la función \textit{AG(cycl
 	\item Se evalúa la población tras la mutación para determinar si se ha llegado al criterio de convergencia y parar, o por el contrario no se ha llegado y se pasa a la siguiente generación volviendo paso 3.
 \end{enumerate}
 
-El criterio de convergencia que se ha empleado es llegar a fitness 0, pero limitado por un número de generaciones, que se ha ido variando hasta llegaafr a que el fitness del mejor individuo se estabilice.
+El criterio de convergencia que se ha empleado es llegar a fitness 0, pero limitado por un número de generaciones, que se ha ido variando hasta llegar a que el fitness del mejor individuo se estabilice.
 
 La función de fitness que se emplea para el caso de 24 estaciones se realiza mediante \textit{evaluate\_population(population, num\_evaluations)} que hace una petición de get a \href{http://memento.evannai.inf.uc3m.es/age/alfa?c=}{http://memento.evannai.inf.uc3m.es/age/alfa?c=} seguido por el cromosoma para cada uno de los individuos de la población que le pasamos como parámetro.
 
@@ -193,7 +193,7 @@ Los datos en los que se basa la gráfica son los de la siguiente tabla, en la qu
 \vspace{-.5cm}
 Podemos ver que en general aumentar el porcentaje de mutaciones empeora los resultados y que dentro de aquellos con un 1 \% de mutaciones, el mejor aunque no por mucho es el de menor tamaño de torneo, 10 individuos.
 
-Hasta este punto el mejor modelo ha sido \textbf{100\_10\_1} con un \textbf{fitness de 0,838089054} en \textbf{10100 evaluaciones}, el cromosoma que da este fitness es: 0011011100101010 1100000110101111 1010100100100001 0001010010011111 0001010010101011 1110101000101110 0001100100101011 1011010110001110 0101010110100011 0011100010100011 1110000110101000 0111010010101101 0101000000101010 1011000010001001 1111000110010011 1110000000000011 0010000010101111 1011000110001011 1001000100010011 1000100111111110 1101100010110010 0101000100011011 0100100010111101 0011000110111100. 
+Hasta este punto el mejor modelo ha sido \textbf{100\_10\_1} con un \textbf{fitness de 0,838089054} en \textbf{10100 evaluaciones}, de media este modelo tarda 9320 evaluaciones en alcanzar su mejor resultado, el cromosoma que da este fitness es: 0011011100101010 1100000110101111 1010100100100001 0001010010011111 0001010010101011 1110101000101110 0001100100101011 1011010110001110 0101010110100011 0011100010100011 1110000110101000 0111010010101101 0101000000101010 1011000010001001 1111000110010011 1110000000000011 0010000010101111 1011000110001011 1001000100010011 1000100111111110 1101100010110010 0101000100011011 0100100010111101 0011000110111100. 
 
 Se puede ver a continuación que el fitness ha ido bajando más rápido al principio y que se ha estabilizado al final por lo que las 100 generaciones han sido suficiente para que convergiera. 
 \begin{figure}[H]
@@ -252,7 +252,7 @@ Ahora pasamos a buscar uno de los parámetros más importantes, el valor para la
 
 Como podemos ver hemos conseguido mejorar el modelo previo reduciendo el porcentaje de mutación, los 3 nuevos modelos son mejores. Estos resultados han sido favorables, puesto que una vez encontrado el tamaño de torneo que favorece que se escojan los mejores individuos, solo nos quedaba ajustar en qué medida debían ir cambiando los cromosomas, de manera que no dieran grandes saltos en el espacio de soluciones, pero tampoco como para que se estancase en resultados subóptimos. En ninguno de los casos se ha estancado el modelo, aun dándoles muchas generaciones.
 
-El nuevo \textbf{mejor modelo es 200\_10\_0,5} con un fitness de 0,834496454567, en la siguiente sección se profundizará, pero a continuación el progreso del fitness a lo largo de las evaluaciones.
+El nuevo \textbf{mejor modelo es 200\_10\_0,5} con un fitness de 0,834496454567, tarda de media 18140 evaluaciones en alcanzar su mejor evaluación, en la siguiente sección se profundizará, pero a continuación el progreso del fitness a lo largo de las evaluaciones.
 
 \begin{figure}[H]
 	\ffigbox[\FBwidth]
@@ -295,5 +295,6 @@ El significado de este cromosoma es que las estaciones tendrán los siguientes s
 \end{itemize}
 
 \section{Conclusiones}
+En este proyecto se ha abordado el problema de seleccionar sensores para estaciones de control de calidad del aire en la ciudad Madrid, desde dos enfoques, uno clásico como es la búsqueda por fuerza bruta y otro con computación evolutiva mediante algoritmos genéticos. Se ha podido comprobar que el enfoque clásico se ve muy limitado por la gran cantidad de tiempo que se necesita para realizarlo, por lo que la computación evolutiva ha resultado ser el método más práctico y rápido, ya que entre la prácticamente infinita cantidad de posibilidades que existen es capaz de encontrar una solución suficientemente adecuada.
 
 \end{document}

@@ -1,8 +1,6 @@
 import random
 import numpy as np
 import requests
-import threading
-
 
 NUM_STATIONS = 24
 SIZE_POPULATION = 100
@@ -11,6 +9,7 @@ web_to_request = "http://memento.evannai.inf.uc3m.es/age/alfa?c="
 web_to_test = "http://memento.evannai.inf.uc3m.es/age/test?c="
 
 
+# Creación de la población inicial de manera aleatoria, SIZE_POPULATION individuos de NUM_STATIONS*16 bits
 def initial_population():
     population = np.zeros((SIZE_POPULATION, NUM_STATIONS * 16), dtype=int)
     for i in range(0, len(population)):
@@ -19,6 +18,7 @@ def initial_population():
     return population
 
 
+# Obtenemos un array con las evaluaciones de la población pasada, además de un contador de evaluaciones
 def evaluate_population(population, num_evaluations):
     evaluations = []
     for i in population:
@@ -38,6 +38,8 @@ def list_to_string(list_of_integers):
     return ''.join([str(v) for v in list_of_integers])
 
 
+# Se crea una población de tamaño SIZE_POPULATION mediante la selección del más válido entre num_candidates individuos
+# elegidos aleatoriamente de la población original
 def tournament_selection(population, evaluation, num_candidates):
     new_population = []
     for k in range(0, SIZE_POPULATION):
@@ -55,6 +57,7 @@ def tournament_selection(population, evaluation, num_candidates):
     return new_population
 
 
+# Por pares se van eligiendo cromosomas homólogos aleatoriamente generando dos nuevos individuos
 def uniform_crossover(population):
     new_population = []
     for i in range(0, len(population), 2):
@@ -73,6 +76,7 @@ def uniform_crossover(population):
     return new_population
 
 
+# De manera aleatoria y con probabilidad factor se modifican los genes de los individuos de la población
 def mutation(population, factor):
     for i in range(0, len(population)):
         for j in range(0, len(population[0])):
@@ -88,6 +92,7 @@ def get_best_chromosome(population, evaluations):
     return min_value, population[min_index]
 
 
+# Se encarga de realizar todo el procedimiento del algoritmo genético y almacena los resultados correspondientes
 def AG(cycles, size_tournament, mutation_factor, test_iteration):
     output_file = open('output_genetic_algorithm' + "_" +
                        str(cycles) + "_" + str(size_tournament) + "_" + str(mutation_factor) + "_" + str(test_iteration)
@@ -118,14 +123,4 @@ def AG(cycles, size_tournament, mutation_factor, test_iteration):
 
 
 if __name__ == '__main__':
-    a = threading.Thread(target=AG, args=(200, 5, 0.5, 1))
-    b = threading.Thread(target=AG, args=(200, 7, 0.5, 1))
-    c = threading.Thread(target=AG, args=(200, 10, 0.4, 1))
-    d = threading.Thread(target=AG, args=(200, 10, 0.6, 1))
-
-    a.start()
-    b.start()
-    c.start()
-    d.start()
-
-    # 0,834496454567
+    AG(200, 10, 0.5, 1)
