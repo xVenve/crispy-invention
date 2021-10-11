@@ -143,6 +143,8 @@ La generación de esta población se hace en la función \textit{initial\_popula
 \subsubsection{Selección}
 Se ha elegido para este problema la Selección por torneo, que consiste en seleccionar de manera aleatoria x individuos de la población y coger al mejor, en este caso el de menor fitness, para pasar a la siguiente población. Este proceso se repite tantas veces como individuos necesite la nueva población.
 
+Se ha optado por esta versión del operador, ya que no afectan los superindividuos y se puede ajustar la exploración y explotación fácilmente.
+
 El código correspondiente a este operador está en \textit{tournament\_selection(population, evaluation, num\_candidates)}, donde se pasa por parámetros la población de la que seleccionar los individuos, sus evaluaciones y el tamaño del torneo. Esta función devuelve la nueva población generada.
 
 \subsubsection{Reproducción}
@@ -150,8 +152,11 @@ La versión de este operador que se ha implementado es el Cruce uniforme, que co
 
 Esta función se ha implementado en \textit{uniform\_crossover(population)}, que recibe una población y va cogiendo individuos por parejas, uno se llamara a y otro b. Para cada uno de los genes del individuo se elige aleatoriamente si coger el de a o el de b, en uno de los nuevos individuos meteremos el elegido y en el otro el contrario. Al hacerse para una población par cuando se ha hecho para todos los individuos habremos generado una población nueva, que es devuelta por la función.
 
+Se probó la versión de recombinación discreta para un punto (\textit{discrete\_crossover(population)}) en la versión de solo 4 estaciones, pero los resultados eran peores que la recombinación uniforme, tardaba más en converger, por lo que hemos desarrollado el proyecto en torno a esta. Aunque es viable emplear esta versión del operador, tras 5 pruebas del mejor modelo que se describe abajo llegó a un fitness de 0.835682373786.
+
 \subsubsection{Mutación}
 Con este operador se realizarán saltos en el espacio de soluciones más pequeños lo que nos permitirá explorar. Consiste en variar una proporción de los genes de la población, normalmente pequeña.
+\pagebreak
 
 La función encargada de este operador, \textit{mutation(population, factor)}, recibe una población y factor de mutación. Se irá recorriendo los genes de todos los individuos de la población y por probabilidad, dada por el factor de mutación, se cambiará su valor por el opuesto en este caso binario. Una vez se completa toda la población se devuelve, tenemos ya la población mutada y lista para evaluar.
 
@@ -159,7 +164,7 @@ La función encargada de este operador, \textit{mutation(population, factor)}, r
 La estrategia que se ha seguido es Generacional, en cada generación se sustituyen todos los individuos por la nueva población generada, de manera que no se conservan directamente los individuos, pero si su legado genético.
 
 \subsection{Pruebas}
-Para empezar, los modelos  se han nombrado siguiendo una codificación con el siguiente formato XX\_YY\_ZZ, tal que:
+Para empezar, los modelos se han nombrado siguiendo una codificación con el siguiente formato XX\_YY\_ZZ, tal que:
 \begin{itemize}
 	\item \textbf{XX:} Número de generaciones generadas.
 	\item \textbf{YY:} Tamaño del conjunto de candidatos al hacer torneo para la selección.
@@ -170,7 +175,7 @@ Una vez aclarado esto podemos dar paso a los primeros modelos de prueba. Los par
 \begin{figure}[H]
 	\ffigbox[\FBwidth]
 	{\caption{Fitness primeros modelos}}
-	{\includegraphics[scale=.8]{./img/first_models.jpg}}
+	{\includegraphics[scale=1]{./img/first_models.jpg}}
 \end{figure}
 Los datos en los que se basa la gráfica son los de la siguiente tabla, en la que se ha marcado para cada uno de los modelos cuál es la mejor prueba en una escala de verde a rojo, siendo verde el mejor y rojo el peor. Se ha elegido el gradiente para cada modelo y no en general para facilitar la distinción de los tonos de colores. Además, se presenta la media de las pruebas, también siguiendo el gradiente de color verde a rojo.
 \begin{table}[H]
@@ -199,14 +204,16 @@ Se puede ver a continuación que el fitness ha ido bajando más rápido al princ
 \begin{figure}[H]
 	\ffigbox[\FBwidth]
 	{\caption{Fitness vs. Evaluaciones 100\_10\_1}}
-	{\includegraphics[scale=.75]{./img/100_10_1.jpg}}
+	{\includegraphics[scale=.9]{./img/100_10_1.jpg}}
 \end{figure}
+\pagebreak
+En vista de los resultados anteriores, se va a probar primero a reducir los \textbf{tamaños de torneo a 6 y 4 individuos}, se ha aumentado el número de generaciones (150) para que puedan seguir convergiendo con normalidad. 
 
-En vista de los resultados anteriores, se va a probar primero a reducir los \textbf{tamaños de torneo a 6 y 4 individuos}, se ha aumentado el número de generaciones (150) para que puedan seguir convergiendo con normalidad. En la siguiente gráfica se pueden ver los resultados nuevos comparados con los previos para un tamaño diferente de torneo:
+En la siguiente gráfica se pueden ver los resultados nuevos comparados con los previos para un tamaño diferente de torneo:
 \begin{figure}[H]
 	\ffigbox[\FBwidth]
 	{\caption{Pruebas Tamaño de torneo}}
-	{\includegraphics[scale=.8]{./img/sizes.jpg}}
+	{\includegraphics[scale=1]{./img/sizes.jpg}}
 \end{figure}
 \begin{table}[H]
 	\centering
@@ -221,18 +228,18 @@ En vista de los resultados anteriores, se va a probar primero a reducir los \tex
 			100\_10\_1                                                                           & \cellcolor[HTML]{F8696B}0,839749196                                            & \cellcolor[HTML]{63BE7B}0,838089054                                            & \cellcolor[HTML]{FFE683}0,838665365                                            & \cellcolor[HTML]{FFEB84}0,838618184                                            & \cellcolor[HTML]{AAD27F}0,838332600                                            & \cellcolor[HTML]{63BE7B}0,838690880                                                \\ \hline
 			100\_20\_1                                                                           & \cellcolor[HTML]{F8696B}0,839900614                                            & \cellcolor[HTML]{FB8F73}0,839552573                                            & \cellcolor[HTML]{D8DF81}0,838388457                                            & \cellcolor[HTML]{FFEB84}0,838693558                                            & \cellcolor[HTML]{63BE7B}0,837454293                                            & \cellcolor[HTML]{8AC97D}0,838797899                                                \\ \hline
 			100\_34\_1                                                                           & \cellcolor[HTML]{63BE7B}0,838723301                                            & \cellcolor[HTML]{E8E482}0,839284199                                            & \cellcolor[HTML]{F8696B}0,839858925                                            & \cellcolor[HTML]{FFEB84}0,839379061                                            & \cellcolor[HTML]{FFE483}0,839406925                                            & \cellcolor[HTML]{FFE082}0,839330482                                                \\ \hline
-			100\_34\_5                                                                           & \cellcolor[HTML]{63BE7B}0,857793513                                            & \cellcolor[HTML]{F8696B}0,86290718                                             & \cellcolor[HTML]{FFEB84}0,861455499                                            & \cellcolor[HTML]{EAE582}0,860982293                                            & \cellcolor[HTML]{FB9E76}0,862319070                                            & \cellcolor[HTML]{FB9173}0,861091511                                                \\ \hline
 		\end{tabular}%
 	}
 \end{table}
 
 Podemos apreciar que de media el mejor modelo sigue siendo 100\_10\_1, cabe mencionar que aun así el mejor resultado lo ha dado 100\_20\_1 con 0,837454293 de fitness y cromosoma 0011001100101010 1100000110111110 1010100100110001 0101000010001110 0001000010101001 1110100100100110 0001100000101111 1011010110111110 0101010110100111 0011100010100011 1110000110101000 0111000010101101 0011000000101010 1011000010101001 1101000110010011 1100001000000111 0010000010101111 1111000110001011 1001000100011011 1001110001111111 0111100010111011 0101000100110011 0100100010111100 0011000010111100. Por lo que continuaremos las pruebas con un tamaño de 10 individuos.
+\pagebreak
 
 Ahora pasamos a buscar uno de los parámetros más importantes, el valor para la mutación, basado en la mejor prueba anterior se procede a reducir el \textbf{porcentaje de mutación a 0,5 \%, 0,1 \% y 0,05 \%}. Para estas pruebas se ha aumentado el número de generaciones, ya que en cada generación se realizan movimientos en el espacio de soluciones más pequeños y tardan más en converger. A continuación se presentan estos nuevos modelos:
 \begin{figure}[H]
 	\ffigbox[\FBwidth]
 	{\caption{Pruebas Porcentaje de mutación}}
-	{\includegraphics[scale=.8]{./img/mutation.jpg}}
+	{\includegraphics[scale=1]{./img/mutation.jpg}}
 \end{figure}
 \begin{table}[H]
 	\centering
@@ -252,19 +259,20 @@ Ahora pasamos a buscar uno de los parámetros más importantes, el valor para la
 
 Como podemos ver hemos conseguido mejorar el modelo previo reduciendo el porcentaje de mutación, los 3 nuevos modelos son mejores. Estos resultados han sido favorables, puesto que una vez encontrado el tamaño de torneo que favorece que se escojan los mejores individuos, solo nos quedaba ajustar en qué medida debían ir cambiando los cromosomas, de manera que no dieran grandes saltos en el espacio de soluciones, pero tampoco como para que se estancase en resultados subóptimos. En ninguno de los casos se ha estancado el modelo, aun dándoles muchas generaciones.
 
-El nuevo \textbf{mejor modelo es 200\_10\_0,5} con un fitness de 0,834496454567, tarda de media 18140 evaluaciones en alcanzar su mejor evaluación, en la siguiente sección se profundizará, pero a continuación el progreso del fitness a lo largo de las evaluaciones.
-
-\begin{figure}[H]
-	\ffigbox[\FBwidth]
-	{\caption{Fitness vs. Evaluaciones 200\_10\_0,5}}
-	{\includegraphics[scale=.8]{./img/200_10_0,5.jpg}}
-\end{figure}
+El nuevo \textbf{mejor modelo es 200\_10\_0,5} con un fitness de 0,834496454567, tarda de media 18140 evaluaciones en alcanzar su mejor evaluación, en la siguiente sección se profundizará en este modelo explicando que significa esta solución.
+\pagebreak
 
 \subsection{Resultado}
 El mejor modelo que hemos llegado a obtener ha sido el \textbf{200\_10\_0,5}, que corresponde a \textbf{200 generaciones} que han sido \textbf{20100 evaluaciones} con un tamaño de \textbf{torneo de 10 individuos} y un porcentaje de \textbf{mutación del 0,5 \%} de la población, el resultado obtenido tiene un \textbf{fitness de 0,834496454567} y su cromosoma asociado es:
 
 0011010100101011 1100000110111111 1010100100101001 0101000010011110 0001000010101011 1100001010001110 0001000110101101 1011000110111110 0101010110100011 0011100000000111 1110000110101000 0111000010101101 0111000000101010 1011000010001001 1101000110010011 1110000000011011 0010000010101111 0011000010001111 1001000100010011 1001110001111110 1111100010110011 0101000100010011 0100100010111100 0011000010111100
-\pagebreak
+
+En la siguiente gráfica se puede ver como progresivamente a lo largo de las evaluaciones la solución va mejorando hasta converger alrededor del 0,835 y a partir de este punto la mejora es mínima.
+\begin{figure}[H]
+	\ffigbox[\FBwidth]
+	{\caption{Fitness vs. Evaluaciones 200\_10\_0,5}}
+	{\includegraphics[scale=1]{./img/200_10_0,5.jpg}}
+\end{figure}
 
 El significado de este cromosoma es que las estaciones tendrán los siguientes sensores:
 \begin{itemize}

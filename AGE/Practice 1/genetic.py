@@ -57,7 +57,28 @@ def tournament_selection(population, evaluation, num_candidates):
     return new_population
 
 
-# Por pares se van eligiendo cromosomas homólogos aleatoriamente generando dos nuevos individuos
+# Por pares, se parten ambos cromosomas por un mismo gen y se generan 2 individuos, cogiendo un parte de cada progenitor
+def discrete_crossover(population):
+    new_population = []
+    for i in range(0, len(population), 2):
+        s1 = []
+        s2 = []
+        n = random.randint(0, len(population[0]))
+        it = 0
+        for j in range(0, len(population[0])):
+            if n > it:
+                s1.append(population[i][j])
+                s2.append(population[i + 1][j])
+            else:
+                s2.append(population[i][j])
+                s1.append(population[i + 1][j])
+            it = it + 1
+        new_population.append(s1)
+        new_population.append(s2)
+    return new_population
+
+
+# Por pares, se van eligiendo genes homólogos de los progenitores aleatoriamente generando dos nuevos individuos
 def uniform_crossover(population):
     new_population = []
     for i in range(0, len(population), 2):
