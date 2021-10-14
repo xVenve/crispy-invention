@@ -5,7 +5,8 @@ import requests
 NUM_STATIONS = 24
 SIZE_POPULATION = 100
 
-web_to_request = "http://memento.evannai.inf.uc3m.es/age/alfa?c="
+web_to_request = "http://memento.evannai.inf.uc3m.es/age/pilar?c="
+web_to_practice1 = "http://memento.evannai.inf.uc3m.es/age/alfa?c="
 web_to_test = "http://memento.evannai.inf.uc3m.es/age/test?c="
 
 
@@ -144,4 +145,4 @@ def AG(cycles, size_tournament, mutation_factor, test_iteration):
 
 
 if __name__ == '__main__':
-    AG(200, 10, 0.5, 1)
+    AG(2000, 10, 0.5, 'easy1')

@@ -5,16 +5,20 @@ import requests
 NUM_STATIONS = 24
 SIZE_POPULATION = 100
 
-web_to_request = "http://memento.evannai.inf.uc3m.es/age/alfa?c="
-web_to_test = "http://memento.evannai.inf.uc3m.es/age/test?c="
-
+web_to_request = "http://memento.evannai.inf.uc3m.es/age/alfa2?c="
 
 # Creación de la población inicial de manera aleatoria, SIZE_POPULATION individuos de NUM_STATIONS*16 bits
 def initial_population():
-    population = np.zeros((SIZE_POPULATION, NUM_STATIONS * 16), dtype=int)
+    population = np.chararray((SIZE_POPULATION, NUM_STATIONS * 16), unicode=True)
     for i in range(0, len(population)):
         for j in range(0, len(population[0])):
-            population[i][j] = random.randint(0, 1)
+            n = random.randint(0, 2)
+            if n == 0:
+                population[i][j] = '0'
+            elif n == 1:
+                population[i][j] = 'H'
+            else:
+                population[i][j] = 'F'
     return population
 
 
@@ -103,7 +107,22 @@ def mutation(population, factor):
         for j in range(0, len(population[0])):
             n = np.random.rand() * 100
             if n < factor:
-                population[i][j] = 1 - population[i][j]
+                m = random.randint(0, 1)
+                if population[i][j] == '0':
+                    if m == 0:
+                        population[i][j] = 'H'
+                    else:
+                        population[i][j] = 'F'
+                if population[i][j] == 'H':
+                    if m == 0:
+                        population[i][j] = '0'
+                    else:
+                        population[i][j] = 'F'
+                if population[i][j] == 'F':
+                    if m == 0:
+                        population[i][j] = '0'
+                    else:
+                        population[i][j] = 'H'
     return population
 
 
@@ -144,4 +163,4 @@ def AG(cycles, size_tournament, mutation_factor, test_iteration):
 
 
 if __name__ == '__main__':
-    AG(2000, 10, 0.5, 1)
+    AG(200, 10, 0.5, 1)
