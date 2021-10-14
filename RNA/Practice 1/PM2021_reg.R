@@ -28,9 +28,9 @@ salida <- ncol (trainSet)   #num de la columna de salida
 
 
 #SELECCION DE LOS PARAMETROS
-topologia        <- c(80,80) #PARAMETRO DEL TIPO c(A,B,C,...,X) A SIENDO LAS NEURONAS EN LA CAPA OCULTA 1, B LA CAPA 2 ...
-razonAprendizaje <- 0.75 #NUMERO REAL ENTRE 0 y 1
-ciclosMaximos    <- 100000 #NUMERO ENTERO MAYOR QUE 0
+topologia        <- c(60) #PARAMETRO DEL TIPO c(A,B,C,...,X) A SIENDO LAS NEURONAS EN LA CAPA OCULTA 1, B LA CAPA 2 ...
+razonAprendizaje <- 0.0005 #NUMERO REAL ENTRE 0 y 1
+ciclosMaximos    <- 1000000 #NUMERO ENTERO MAYOR QUE 0
 
 #EJECUCION DEL APRENDIZAJE Y GENERACION DEL MODELO
 
