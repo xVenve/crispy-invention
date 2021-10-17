@@ -7,6 +7,7 @@ SIZE_POPULATION = 100
 
 web_to_request = "http://memento.evannai.inf.uc3m.es/age/alfa2?c="
 
+
 # Creación de la población inicial de manera aleatoria, SIZE_POPULATION individuos de NUM_STATIONS*16 bits
 def initial_population():
     population = np.chararray((SIZE_POPULATION, NUM_STATIONS * 16), unicode=True)
@@ -163,4 +164,4 @@ def AG(cycles, size_tournament, mutation_factor, test_iteration):
 
 
 if __name__ == '__main__':
-    AG(200, 10, 0.5, 1)
+    AG(2000, 10, 0.1, "ampliacion1")
