@@ -6,68 +6,114 @@ import requests
 NUM_MOTOR = 4
 web_to_request_4 = "http://memento.evannai.inf.uc3m.es/age/robot4?"
 
-population =np.zeros((NUM_MOTOR, 2), dtype = float)
 
-for i in range(0, NUM_MOTOR):
-    population[i][0] = random.gauss(0, 100)
-    population[i][1] = random.SystemRandom().uniform(5, 20)
+def list_to_string(list_of_values):
+    return ' '.join([str(v[0]) for v in list_of_values])
 
 
-# Hacer de -180 a 180 al inicializar, trabaja bien con negativos
+def initial_individual():
+    individual = np.zeros((NUM_MOTOR, 2), dtype=float)
 
-grados = ""
-for i in range(1, NUM_MOTOR+1):
-    if i == 1:
-        grados = "c"+str(i)+"="+str(population[i-1][0])
-    else:
-        grados = grados+ "&c"+str(i)+"="+str(population[i-1][0])
-
-mejoras = 0
-c= 0.82
-
-for it in range(0, 100000):
-    p_eva = requests.get(web_to_request_4 + grados)
-
-    # nuevo individuos
-    hijo =np.zeros((NUM_MOTOR, 2), dtype = float)
     for i in range(0, NUM_MOTOR):
-        hijo[i][0] = population[i][0] + random.gauss(0, population[i][1])
-        hijo[i][1] = population[i][1]
+        individual[i][0] = random.gauss(0, 100)
+        individual[i][1] = random.SystemRandom().uniform(5, 20)
+    return individual
 
-    grados = ""
-    for i in range(1, NUM_MOTOR+1):
+
+def evaluate_individual(individual):
+    degrees = ""
+    for i in range(1, NUM_MOTOR + 1):
         if i == 1:
-            grados = "c"+str(i)+"="+str(hijo[i-1][0])
+            degrees = "c" + str(i) + "=" + str(individual[i - 1][0])
         else:
-            grados = grados+ "&c"+str(i)+"="+str(hijo[i-1][0])
+            degrees = degrees + "&c" + str(i) + "=" + str(individual[i - 1][0])
 
-    # Hacer de -180 a 180 al inicializar, trabaja bien con negativos
+    evaluation = None
+    while evaluation is None:
+        try:
+            evaluation = requests.get(web_to_request_4 + degrees)
+        except:
+            pass
+    return evaluation.text
 
-    p_evah = requests.get(web_to_request_4 + grados)
 
-    percentaje = 2
-    # Evaluo hijo, si es mejor padre -1 mejora, si hijo mejor +1 mejora y calculamos la varianza del hijo
+def crossover(individual):
+    son = individual.copy()
+    for i in range(0, NUM_MOTOR):
+        son[i][0] = son[i][0] + random.gauss(0, son[i][1])
+    return son
 
-    print(p_eva.text, p_evah.text)
-    eva_mejor = 0
-    if p_evah.text < p_eva.text:
-        print("cambio hijo")
-        population = hijo.copy()
-        eva_mejor = p_evah.text
-        if mejoras < 10:
-            mejoras = mejoras + 1
-        if it > 9:
-            cambio = 1
-            if mejoras < percentaje:
-                cambio = c
-            if mejoras > percentaje:
-                cambio = 1/c
 
+def individual_next_generation(individual, son, improvements_counter, iteration, c):
+    evaluation_father = evaluate_individual(individual)
+    evaluation_son = evaluate_individual(son)
+    if evaluation_son < evaluation_father:
+        individual = son.copy()
+        evaluation_father = evaluation_son
+        if improvements_counter < 10:
+            improvements_counter = improvements_counter + 1
+        if iteration > 9:
+            change_in_variance = 1
+            if improvements_counter < 2:
+                change_in_variance = c
+            if improvements_counter > 2:
+                change_in_variance = 1 / c
             for i in range(0, NUM_MOTOR):
-                hijo[i][1] = hijo[i][1]*cambio
+                son[i][1] = son[i][1] * change_in_variance
     else:
-        eva_mejor = p_eva.text
-        if mejoras > 0:
-            mejoras = mejoras - 1
+        if improvements_counter > 0:
+            improvements_counter = improvements_counter - 1
 
-    print(eva_mejor)
+    return individual, evaluation_father, improvements_counter
+
+
+def EE1plus1(c, cycles, test_iteration):
+    output_file = open('output_evolution_strategy' + "_" + str(cycles) + "_" + str(c) + "_" + str(test_iteration) +
+                       '.txt', 'w')
+    individual = initial_individual()
+    improvements_counter = 0
+    for i in range(0, cycles):
+        son = crossover(individual)
+        individual, best_evaluation, improvements_counter = individual_next_generation(individual, son,
+                                                                                       improvements_counter, i, c)
+        output_file.write(str(2 * i) + " " + str(best_evaluation) + " " + list_to_string(individual) + "\n")
+        print("Generación " + str(i) + ": " + str(best_evaluation) + "\t Grados: " + list_to_string(individual))
+    output_file.close()
+
+
+if __name__ == '__main__':
+    EE1plus1(0.82, 2000, 1)
+    EE1plus1(0.82, 2000, 2)
+    EE1plus1(0.82, 2000, 3)
+    EE1plus1(0.82, 2000, 4)
+    EE1plus1(0.82, 2000, 5)
+
+    EE1plus1(0.82, 5000, 1)
+    EE1plus1(0.82, 5000, 2)
+    EE1plus1(0.82, 5000, 3)
+    EE1plus1(0.82, 5000, 4)
+    EE1plus1(0.82, 5000, 5)
+
+    EE1plus1(0.62, 2000, 1)
+    EE1plus1(0.62, 2000, 2)
+    EE1plus1(0.62, 2000, 3)
+    EE1plus1(0.62, 2000, 4)
+    EE1plus1(0.62, 2000, 5)
+
+    EE1plus1(0.62, 5000, 1)
+    EE1plus1(0.62, 5000, 2)
+    EE1plus1(0.62, 5000, 3)
+    EE1plus1(0.62, 5000, 4)
+    EE1plus1(0.62, 5000, 5)
+
+    EE1plus1(1.02, 2000, 1)
+    EE1plus1(1.02, 2000, 2)
+    EE1plus1(1.02, 2000, 3)
+    EE1plus1(1.02, 2000, 4)
+    EE1plus1(1.02, 2000, 5)
+
+    EE1plus1(1.02, 5000, 1)
+    EE1plus1(1.02, 5000, 2)
+    EE1plus1(1.02, 5000, 3)
+    EE1plus1(1.02, 5000, 4)
+    EE1plus1(1.02, 5000, 5)
