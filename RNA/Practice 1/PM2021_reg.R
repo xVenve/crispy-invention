@@ -1,7 +1,7 @@
 library(RSNNS)
 
 graficaError <- function(iterativeErrors){
-        plot(1:nrow(iterativeErrors),iterativeErrors[,1], type="l", main="Evoluci?n del error",
+        plot(1:nrow(iterativeErrors),iterativeErrors[,1], type="l", main="Evolución del error",
              ylab="MSE",xlab="Ciclos",
              ylim=c(min(iterativeErrors),max(iterativeErrors)))
         lines(1:nrow(iterativeErrors),iterativeErrors[,2], col="red")
