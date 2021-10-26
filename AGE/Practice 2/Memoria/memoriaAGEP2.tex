@@ -113,28 +113,50 @@ Cuando se elija al descendiente se considera una mejora y se tendra en cuanta en
 La función que recoge la inserción y remplazo, ademas de la mutación de las varianzas es la que se mencióno antes, \textit{individual\_next\_generation(individual, son, improvements\_counter, iteration, c)}, que evalua ambos individuos, elige el mejor, actualiza el contador de mejoras y aplica la mutación en función del parametro c que se le pasa. La función devuelve el invididuo elegido, su fitness y el contador de mejoras actualizado. 
 
 \subsection{Aproximación 4 motores}
+Comenzaremos realizando pruebas en la versión simplificada sel problema, en el que solo se consideraran 4 motores para el brazo soldador. 
 
+Estos primero modelos que se generaran consistiran en la variación del valor c, el que determina cuanto cambiara la varianza de los individuos. Es conocido que el valor debe ser inferior a 1 y que el recomendables el 0,82, pero en busca de mejores resultados se ha probado además con 0,98, 0, 92, 0,72 y 0,62. No se han variado mas estos valores, por que la selección de valores mas bajos provocaria que los valores de varianza se movieran muy rapido.
+
+Todos los modelos se han ejeciutado durante 5000 generaciones, que son 10000 evaluaciones, y se han realizado 10 ejecuciones para cada modelo para evitar el sesgo de la aleatoriedad a la hora de generar los valores aleatorio.
+
+Los modelos han sido nombrados siguiendo el siguiente patron evolution\_strategy\_XX\_YY\_A-B\_C:
+\begin{itemize}
+	\item \textbf{XX:} Indica el numero de motores que se cosideran y para los que se ajustaran los angulos.
+	\item \textbf{YY:} Indica el valor de c, el cual determina como se modificaran las varianzas.
+	\item \textbf{A-B:} Indica el rando de valores entre los que se generan aleatoriamente las varianzas.
+	\item \textbf{C:} Indica el numero de generacione que tiene en cuanta para medir la frecuencia de mejora.
+\end{itemize}
+
+En la siguiente grafica se pueden ver los resultados de fitness obtenidos en las 10 ejecuciones para los 5 modelos, junto a la media de cada modelo que es la que utilizaremos para comparar.
 \begin{figure}[H]
 	\ffigbox[\FBwidth]
 	{\caption{Valores de Fitness: 4\_5-20\_10}}
 	{\includegraphics[scale=.6]{./img/Fitness\_4\_5-20\_10.png}}
 \end{figure}
+\begin{table}[H]
+	\centering
+	\resizebox{\textwidth}{!}{%
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+	\hline
+	\rowcolor[HTML]{BFBFBF} 
+	\textbf{Modelo}                                    & \textbf{1}  & \textbf{2}  & \textbf{3}  & \textbf{4}  & \textbf{5}  & \textbf{6}           & \textbf{7}  & \textbf{8}  & \textbf{9}  & \textbf{10} & \textbf{Media}       \\ \hline
+	\cellcolor[HTML]{BFBFBF}\textbf{4\_0,98\_5-20\_10} & 399,8967664 & 21,88903367 & 20,89403404 & 1,989918114 & 2,984877171 & \textbf{0,994959057} & 243,1577278 & 13,92939149 & 49,74695184 & 5,969749305 & \textbf{76,14534088} \\ \hline
+	\cellcolor[HTML]{BFBFBF}\textbf{4\_0,92\_5-20\_10} & 115,4108682 & 86,56039686 & 587,9440061 & 654,4753316 & 51,73723573 & 25,86868199          & 35,81824234 & 125,3603064 & 2081,267141 & 4,974790248 & 376,9417             \\ \hline
+	\cellcolor[HTML]{BFBFBF}\textbf{4\_0,82\_5-20\_10} & 34,8234203  & 1053,037537 & 98,49807057 & 263,6453657 & 79,59564625 & 270,6192328          & 1955,329393 & 1649,132003 & 193,0126789 & 361,1448922 & 595,8838239          \\ \hline
+	\cellcolor[HTML]{BFBFBF}\textbf{4\_0,72\_5-20\_10} & 134,6082641 & 887,2371193 & 758,3690516 & 1232,534402 & 731,1155627 & 161,1833393          & 208,9351831 & 808,6563643 & 1438,833559 & 993,6769101 & 735,5149756          \\ \hline
+	\cellcolor[HTML]{BFBFBF}\textbf{4\_0,62\_5-20\_10} & 1342,19067  & 58,71220968 & 24,87415781 & 1391,691525 & 1691,348176 & 1280,418402          & 443,7601042 & 692,0338572 & 1812,167475 & 113,4223726 & 885,061895           \\ \hline
+	\end{tabular}%
+	}
+	\caption{Fitness iniciales 4 motores}
+	\end{table}
+
+	
 \begin{figure}[H]
 	\ffigbox[\FBwidth]
 	{\caption{Valores de Fitness: 4\_5-20\_100}}
 	{\includegraphics[scale=.58]{./img/Fitness\_4\_5-20\_100.png}}
 \end{figure}
 
-\begin{figure}[H]
-	\ffigbox[\FBwidth]
-	{\caption{Mejores ciclos: 4\_5-20\_10}}
-	{\includegraphics[scale=.58]{./img/Cycles\_4\_5-20\_10.png}}
-\end{figure}
-\begin{figure}[H]
-	\ffigbox[\FBwidth]
-	{\caption{Mejores ciclos: 4\_5-20\_100}}
-	{\includegraphics[scale=.58]{./img/Cycles\_4\_5-20\_100.png}}
-\end{figure}
 
 \subsection{Aproximación 10 motores}
 
