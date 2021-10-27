@@ -127,7 +127,7 @@ Los modelos han sido nombrados siguiendo el siguiente patrón evolution\_strateg
 	\item \textbf{C:} Indica el número de generaciones que tiene en cuanta para medir la frecuencia de mejora.
 \end{itemize}
 
-En la siguiente gráfica se pueden ver los resultados de fitness obtenidos en las 10 ejecuciones para los 5 modelos, junto a la media de cada modelo que es la que utilizaremos para comparar.
+En la siguiente gráfica y tabla se pueden ver los resultados de fitness obtenidos en las 10 ejecuciones para los 5 modelos, junto a la media de cada modelo que es la que utilizaremos para comparar.
 \begin{figure}[H]
 	\ffigbox[\FBwidth]
 	{\caption{Valores de Fitness: 4\_5-20\_10}}
@@ -150,12 +150,59 @@ En la siguiente gráfica se pueden ver los resultados de fitness obtenidos en la
 	\caption{Fitness iniciales 4 motores}
 \end{table}
 
+Se puede ver que los mejores resultados se han obtenido para una c de 0,98 y que segun se van reduciendo progresicamente, las evaluaciones van empeorando. En la grafica solo se ve la media, pero en la tabla se puede apreciar que los valores normalmente son bajos y los que la suben son unas pocas ejecuciones que dan valores mas altos. 
+
+Aun con esto, el mejor resultado se ha obtenido en la que da mejor medias, ques es c de 0,98 y una venatana de varianzas entre 5 y 20. El resultado que nos proporciona el modelo es de 0,994959057 de fitness, que le lleva 1998 evaluciones, que para el caso son 999 generaciones de las 5000 dadas.
+
+En la siguiente pagina se puede ver el progreso de la evaluación y de los angulos a lo largo de las 1998 evaluaciones, se puede ver que al comienzo como los valores de partida son aleatorios el error es muy alto y rapidamente decrece hasta converger, en este caso en torno al 1. En cuanto a los grados se puede un comportameinto parecido, van moviendose rapiamente hasta llegar a un  valor en el que converge en este caso los valors son:
+\begin{itemize}
+	\item Motor 1: 9,128498158310796
+	\item Motor 2: 5,9876539870877865 
+	\item Motor 3: 3,6666659795960044 
+	\item Motor 4: 1,7654321185803394
+\end{itemize}
+\begin{figure}[H]
+	\ffigbox[\FBwidth]
+	{\caption{Fitness vs. Evaluaciones: 4\_5000\_0.98\_6}}
+	{\includegraphics[scale=.6]{./img/4\_5000\_0.98\_6Eval.png}}
+\end{figure}
+\begin{figure}[H]
+	\ffigbox[\FBwidth]
+	{\caption{Angulos 4\_5000\_0.98\_6}}
+	{\includegraphics[scale=.6]{./img/4\_5000\_0.98\_6Ang.png}}
+\end{figure}
+
+Despues de ver esto, pasamos a probar aumentantando el rango de valores entre los que se generan las varianzas del individuo inicial a valores entre 5 y 100. Se repiten de nuevo las pruebas anteriores para ver si este cambio supone una mejora en  general en los modelos que se habian considerado.
+
+Los resultados que obtenemos durante 10 ejecuciones para 4 motores, c variable y valores de varianza iniciales entre 5 y 100 se desriben en las siguiente grafica y tablas correspondientes.
 
 \begin{figure}[H]
 	\ffigbox[\FBwidth]
 	{\caption{Valores de Fitness: 4\_5-20\_100}}
 	{\includegraphics[scale=.58]{./img/Fitness\_4\_5-20\_100.png}}
 \end{figure}
+\begin{table}[H]
+	\centering
+	\resizebox{\textwidth}{!}{%
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+	\hline
+	\rowcolor[HTML]{BFBFBF} 
+	\textbf{Modelo}                                     & \textbf{1}  & \textbf{2}  & \textbf{3}  & \textbf{4}  & \textbf{5}  & \textbf{6}           & \textbf{7}           & \textbf{8}  & \textbf{9}  & \textbf{10} & \textbf{Media}       \\ \hline
+	\cellcolor[HTML]{BFBFBF}\textbf{4\_0,98\_5-20\_100} & 5,969749305 & 21,8889931  & 9,949580495 & 4,974790248 & 5,969749305 & \textbf{5,969749305} & \textbf{1,989918114} & 6,964708362 & 2,984877171 & 3,979836228 & \textbf{7,064195163} \\ \hline
+	\cellcolor[HTML]{BFBFBF}\textbf{4\_0,92\_5-20\_100} & 5,542532418 & 14,74571547 & 84,98910986 & 37,81101029 & 5,011906134 & 36,82614644          & 34,11110903          & 10,47056077 & 53,73206948 & 27,85876286 & 31,10989227          \\ \hline
+	\cellcolor[HTML]{BFBFBF}\textbf{4\_0,82\_5-20\_100} & 9,809572078 & 41,36192181 & 99,24012352 & 339,3468103 & 42,84572441 & 36,74907856          & 18,86484429          & 30,76219558 & 20,6740378  & 28,65534023 & 66,83096486          \\ \hline
+	\cellcolor[HTML]{BFBFBF}\textbf{4\_0,72\_5-20\_100} & 263,4369112 & 67,53778001 & 119,6652832 & 29,2806866  & 22,87188578 & 107,3685088          & 277,6832855          & 27,53812501 & 187,4785023 & 103,624326  & 120,6485294          \\ \hline
+	\cellcolor[HTML]{BFBFBF}\textbf{4\_0,62\_5-20\_100} & 67,02456414 & 60,89633218 & 280,0429631 & 63,05976061 & 42,89979308 & 28,0932833           & 76,75306751          & 478,2493174 & 43,57174374 & 34,51221151 & 117,5103037          \\ \hline
+	\end{tabular}%
+	}
+	\caption{Fitness 4 motores y varianzas 5-100}
+	\end{table}
+
+Se puede ver que los modelos mantienen la misma distribución que en la experiemntación previa, es decir que los resultados son mejores cuanto mayor es el c, pero en este caso se reducen en general los valores de fitness.
+
+Aunque de manera general se han reducido las evaluaciones, el mejor resultado obtenido no es mejor que el previo.
+
+El mejor resultado
 
 
 \subsection{Aproximación 10 motores}
