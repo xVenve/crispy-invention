@@ -78,6 +78,7 @@
 % fijamos el estilo a utilizar 
 \lstset{style=estilo}
 \renewcommand{\lstlistingname}{\uppercase{Código}}
+\newcommand{\docref}[1]{\textit{\ref{#1}. \nameref{#1}}}
 
 %%%%% Colors %%%%%
 \definecolor{gray}{rgb}{0.2509803922, 0.2509803922, 0.2509803922}
