@@ -78,10 +78,27 @@
 
 
 
-(definstances hechos-inciales
+(definstances hechos-iniciales
     (paciente of nino (nombre "Carlos")(personalidad timido))
     (NAO of robot (nombre "NAO"))
     (sesion of sesion)
     (rayuela of rayuela)
     (trileros of trileros)
+    (vaso 0 v)
+    (vaso 0 r)
+    (vaso 0 n)
+    (num 1)
+    (num 2)
+    (num 3)
+    (piedra 0)
+    (numP 1)
+    (numP 2)
+    (numP 3)
+    (numP 4)
+    (numP 5)
+    (numP 6)
+    (numP 7)
+    (numP 8)
+    (numP 9)
+    (numP 10)
 )
