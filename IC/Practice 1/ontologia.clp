@@ -86,8 +86,6 @@
     )
 )
 
-
-
 (definstances instancias-iniciales-rayuela
     (paciente of nino (nombre "Carlos")(personalidad timido))
     (NAO of robot (nombre "NAO"))
@@ -106,4 +104,8 @@
     (num 8)
     (num 9)
     (num 10)
+    (paso 0 "piedra")
+    (paso 1 "cielo")
+    (paso 2 "recoger piedra")
+    (paso 3 "inicio")
 )

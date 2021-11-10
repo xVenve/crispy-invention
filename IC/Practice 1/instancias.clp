@@ -11,6 +11,9 @@
     (num 1)
     (num 2)
     (num 3)
+    (pelota 1 "verde")
+    (pelota 2 "roja")
+    (pelota 3 "nada")
 )
 
 (definstances instancias-iniciales-rayuela
@@ -31,4 +34,8 @@
     (num 8)
     (num 9)
     (num 10)
+    (paso 0 "piedra")
+    (paso 1 "cielo")
+    (paso 2 "recoger piedra")
+    (paso 3 "inicio")
 )

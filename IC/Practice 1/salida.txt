@@ -1,0 +1,39 @@
+TRUE
+CLIPS> (run)
+¡Hola Carlos, soy el robot NAO! En esta sesión vamos hacer una serie de juegos para ver que tal se te dan. No te preocupes, ¡que seguro que se te da genial!. Los juegos serán la rayuela y los trileros, !a ver si me puedes ganar, buena suerte!
+!Vamos a jugar a la rayuela! En este juego lanzaremos una piedra dentro de las casillas que tenemos pintadas en el suelo, entonces saltando a la pata coja deberemos ir desde la casilla inicial hasta el cielo sin pisar la casilla en la que ha caido la piedra y volver. Quien logre hacer 3 vueltas gana. !Cuidado no te caigas, y mucha suerte!
+He asignado al item -1 el valor 4
+El jugador NAO ha llegado a la parte piedra sin caerse 
+El jugador NAO ha llegado a la parte cielo sin caerse 
+El jugador NAO ha llegado a la parte recoger piedra sin caerse 
+El jugador NAO ha llegado a la parte inicio sin caerse 
+El jugador NAO ha ganado un punto.
+He asignado al item -1 el valor 2
+El jugador Carlos ha llegado a la parte piedra sin caerse 
+El jugador Carlos ha llegado a la parte cielo sin caerse 
+El jugador Carlos ha llegado a la parte recoger piedra sin caerse 
+El jugador Carlos ha llegado a la parte inicio sin caerse 
+El jugador Carlos ha ganado un punto.
+He asignado al item -1 el valor 2
+El jugador NAO ha llegado a la parte piedra sin caerse 
+El jugador NAO ha llegado a la parte cielo sin caerse 
+El jugador NAO ha llegado a la parte recoger piedra sin caerse 
+El jugador NAO ha llegado a la parte inicio sin caerse 
+El jugador NAO ha ganado un punto.
+He asignado al item -1 el valor 8
+El jugador Carlos ha llegado a la parte piedra sin caerse 
+El jugador Carlos ha llegado a la parte cielo sin caerse 
+El jugador Carlos ha llegado a la parte recoger piedra sin caerse 
+El jugador Carlos ha llegado a la parte inicio sin caerse 
+El jugador Carlos ha ganado un punto.
+He asignado al item -1 el valor 10
+El jugador NAO ha llegado a la parte piedra sin caerse 
+El jugador NAO ha llegado a la parte cielo sin caerse 
+El jugador NAO ha llegado a la parte recoger piedra sin caerse 
+El jugador NAO ha llegado a la parte inicio sin caerse 
+El jugador NAO ha ganado un punto.
+He asignado al item -1 el valor 8
+El jugador NAO ha ganado
+Me ha gustado mucho jugar contigo, ¡nos vemos!
+<== Focus MAIN
+CLIPS> (dribble-off)
