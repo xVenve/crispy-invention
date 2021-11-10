@@ -1,22 +1,26 @@
-(definstances hechos-iniciales-trileros
+(definstances instancias-iniciales-trileros
     (paciente of nino (nombre "Carlos")(personalidad timido))
     (NAO of robot (nombre "NAO"))
     (sesion of sesion)
     (trileros of trileros)
-    (vaso 0 v)
-    (vaso 0 r)
-    (vaso 0 n)
+    (vaso1 of item (id 1))
+    (vaso2 of item (id 2))
+    (vaso3 of item (id 3))
+)
+(deffacts hechos-iniciales-trileros
     (num 1)
     (num 2)
     (num 3)
 )
 
-(definstances hechos-iniciales-rayuela
+(definstances instancias-iniciales-rayuela
     (paciente of nino (nombre "Carlos")(personalidad timido))
     (NAO of robot (nombre "NAO"))
     (sesion of sesion)
     (rayuela of rayuela)
-    (item 0)
+    (piedra of item)
+)
+(deffacts hechos-iniciales-rayuela
     (num 1)
     (num 2)
     (num 3)

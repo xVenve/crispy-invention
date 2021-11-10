@@ -8,6 +8,7 @@
         (allowed-values distraido timido robot)
     )
 )
+
 (defclass nino (is-a individuo)
     (slot personalidad
         (source composite)
@@ -61,9 +62,8 @@
         (source composite)
         (default "!Vamos a jugar a la rayuela! En este juego lanzaremos una piedra dentro de las casillas que tenemos pintadas en el suelo, entonces saltando a la pata coja deberemos ir desde la casilla inicial hasta el cielo sin pisar la casilla en la que ha caido la piedra y volver. Quien logre hacer 3 vueltas gana. !Cuidado no te caigas, y mucha suerte!")
     )
-    (slot piedra
+    (slot paso
         (type INTEGER)
-        (range 0 10)
         (default 0)
     )
 )
@@ -75,30 +75,35 @@
     )
 )
 
+(defclass item (is-a USER)
+    (slot valor 
+        (type INTEGER)
+        (default -1)
+    )
+    (slot id
+        (type INTEGER)
+        (default -1)
+    )
+)
 
 
 
-(definstances hechos-iniciales
+(definstances instancias-iniciales-rayuela
     (paciente of nino (nombre "Carlos")(personalidad timido))
     (NAO of robot (nombre "NAO"))
     (sesion of sesion)
     (rayuela of rayuela)
-    (trileros of trileros)
-    (vaso 0 v)
-    (vaso 0 r)
-    (vaso 0 n)
+    (piedra of item)
+)
+(deffacts hechos-iniciales-rayuela
     (num 1)
     (num 2)
     (num 3)
-    (piedra 0)
-    (numP 1)
-    (numP 2)
-    (numP 3)
-    (numP 4)
-    (numP 5)
-    (numP 6)
-    (numP 7)
-    (numP 8)
-    (numP 9)
-    (numP 10)
+    (num 4)
+    (num 5)
+    (num 6)
+    (num 7)
+    (num 8)
+    (num 9)
+    (num 10)
 )

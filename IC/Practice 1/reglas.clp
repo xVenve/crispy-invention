@@ -7,63 +7,137 @@
     (modify-instance ?s (tiempo 1))
 )
 
-(defrule elegir-juego
-    ?s <- (object (is-a sesion)(tiempo 1))
-    ?j <- (object (is-a juego))
-=>
-    (modify-instance ?s (tiempo 2))
-    (assert (inicializa-juego))
-    (unmake-instance ?j)
-)
-
 (defrule inicializar-juego 
-    ?i <- (inicializa-juego)
+    ?s <- (object (is-a sesion)(tiempo 1))   
     (object (is-a juego)(reglas ?r))
 =>
     (printout t ?r crlf)
-    (assert lanza)
-    (retract ?i)
+    (assert (fin-inicio))
+    (modify-instance ?s (tiempo 2))
     (make-instance of puntuacion (jugador 0))
     (make-instance of puntuacion (jugador 1))
 )
 
-(defrule ganar-punto
-    (ganado ?g)
+(defrule empezar-turno
+    (not (reinicio))  
+    ?s <- (object (is-a sesion)(tiempo 2))
+    ?i <- (fin-inicio)
+    ?t <- (object (is-a item) (valor -1) (id ?id))
+    (num ?nm)
+    (not (object (is-a item) (valor ?nm))) 
+=> 
+    (modify-instance ?t (valor ?nm))
+    (printout t "He asignado al item " ?id " el valor " ?nm crlf)
+)
+
+; inicio-piedra-cielo-recoger-volver
+(defrule llegar
+    (not (reinicio))
+    (not (checkpoint))
+    (fin-inicio)
+    ?s <- (object (is-a sesion)(tiempo 2))
+    (not (object (is-a item) (valor -1)))
+    (not (object (is-a puntuacion) (valor 3)))
+    ?j <- (object (is-a juego) (paso ?g)(turno ?k))
+    (test (!= ?g 4))
+=>
+    (modify-instance ?j (paso (+ 1 ?g)))
+    (printout t "El jugador " ?k "ha llegado a la parte " ?g " sin caerse " crlf)
+
+
+)
+
+(defrule fin-turno-rayuela
+    (not (reinicio))
+    (not (checkpoint))
+    ?j <- (object (is-a juego) (paso 4))
+    ?it <- (fin-inicio)
+=>
+    (assert (checkpoint 1))
+    (modify-instance ?j (paso 0))
+    (retract ?it)
+)
+
+
+
+
+(defrule elegir-vaso
+    (not (reinicio))
+    (not (checkpoint))
+    ?it <- (fin-inicio)
+    ?s <- (object (is-a sesion)(tiempo 2))
+    (not (object (is-a item) (valor -1)))
+    (not (object (is-a puntuacion) (valor 3)))
+    (num ?nm)
+    (object (is-a item)(id ?nm)(valor ?x))
+=>
+    (printout t "Se ha elegido el vaso " ?nm  " con pelota " ?x crlf)
+    (assert (checkpoint ?x))
+    (retract ?it)
+
+)
+
+(defrule suma-punto
+    (not (reinicio)) 
+    ?c <- (checkpoint 1)
     ?p <- (object (is-a puntuacion) (jugador ?g)(valor ?v))
     ?j <- (object (is-a juego) (turno ?g))
 =>
     (modify-instance ?p (valor (+ ?v 1))) 
     (modify-instance ?j (turno (- 1 ?g)))
+    (retract ?c)
+    (assert (reinicio))
+    (printout t "El jugador " ?g " ha ganado un punto." crlf)
 )
 
-(defrule lanzar
-        ?j <- (object (is-a juego) (turno ?g))
+(defrule resta-punto
+    (not (reinicio))   
+    ?c <- (checkpoint 2)
+    ?p <- (object (is-a puntuacion) (jugador ?g)(valor ?v))
+    ?j <- (object (is-a juego) (turno ?g))
+=>
+    (modify-instance ?p (valor (- ?v 1))) 
+    (modify-instance ?j (turno (- 1 ?g)))
+    (retract ?c)
+    (assert (reinicio))
+    (printout t "El jugador " ?g " ha perdido un punto." crlf)
+)
+
+(defrule sin-punto
+    (not (reinicio)) 
+    ?c <- (checkpoint 3)
+    ?p <- (object (is-a puntuacion) (jugador ?g)(valor ?v))
+    ?j <- (object (is-a juego) (turno ?g))
+=> 
+    (modify-instance ?j (turno (- 1 ?g)))
+    (retract ?c)
+    (assert (reinicio))
+    (printout t "El jugador " ?g " no ha ganado un punto." crlf)
+
+)
+
+(defrule reiniciar-valores
+    ?r <- (reinicio)
+    ?i <- (object (is-a item)(valor ?x)(id ?id))
+    (test (<> ?x -1))
     =>
-        paso lanzar piedra 
-        pasos barajar vasos 
+    (modify-instance ?i (valor -1)(id ?id))
 )
 
-(defrule asignar-vasos
-    ?l <- (lanza)
-    
-    ?v1 <-(vaso ?p1 v)
-    ?v2 <-(vaso ?p2 r)
-    ?v3 <-(vaso ?p3 n)  
-    ?m1 <-(num ?n1)
-    ?m2 <-(num ?n2)
-    ?m3 <-(num ?n3)
-    
-    ?pi <-(piedra ?np)
-    ?m4 <-(numP ?n4)
-
+(defrule reiniciar
+    ?r <- (reinicio)
+    (not (object (is-a item)(valor ?x&~-1)))
     =>
-    (retract ?v1 ?v2 ?v3)
-    (vaso ?n1 v)
-    (vaso ?n2 r)
-    (vaso ?n3 n)
-
-    (retract ?pi)
-    (piedra ?m4)
+    (retract ?r)
+    (assert (fin-inicio))
 )
 
-(defrule)
+(defrule ganar
+    (object (is-a puntuacion) (valor 3)(jugador ?j))
+    ?s <- (object (is-a sesion)(tiempo 2))
+=>
+    (printout t "El jugador " ?j " ha ganado" crlf)
+    (printout t "Me ha gustado mucho jugar contigo, ¡nos vemos!" crlf)
+    (halt)
+)
+
