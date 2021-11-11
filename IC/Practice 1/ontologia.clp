@@ -3,24 +3,29 @@
         (type STRING)
         (default ?NONE)
     )
-    (slot personalidad
-        (type SYMBOL)
-        (allowed-values distraido timido robot)
-    )
 )
 
 (defclass nino (is-a individuo)
     (slot personalidad
-        (source composite)
-        (allowed-values distraido timido)
+        (type SYMBOL)
     )
 )
 
+(defclass mensaje-aviso (is-a USER)
+    (slot contenido
+        (type STRING)
+        )
+    (slot ambiente
+        (type INTEGER)
+    )
+)
+    
 (defclass robot (is-a individuo)
-    (slot personalidad
-        (source composite)
-        (allowed-values robot)
-        (default robot)
+    (slot saludo
+        (type STRING)
+    )
+    (slot despedida
+        (type STRING)
     )
 )
 
@@ -31,7 +36,7 @@
     )
     (slot ambiente
         (type INTEGER)
-        (default 0)
+        (default 1)
     )
 )
 
@@ -86,13 +91,37 @@
     )
 )
 
+(defclass personalidad (is-a USER)
+    (slot nombre
+        (type SYMBOL)
+    )
+    (slot desviacion
+        (type STRING)
+    )
+    (slot respuesta
+        (type INTEGER)
+    )
+)
+
 (definstances instancias-iniciales-rayuela
     (paciente of nino (nombre "Carlos")(personalidad timido))
-    (NAO of robot (nombre "NAO"))
-    (sesion of sesion)
+    (NAO of robot (nombre "NAO") (saludo "¡Hola, soy el robot NAO! En esta sesión vamos hacer una serie de juegos para ver que tal se te dan. No te preocupes, ¡que seguro que se te da genial!. Los juegos serán la rayuela y los trileros, !a ver si me puedes ganar, buena suerte!") (despedida "Me ha gustado mucho jugar contigo, ¡nos vemos!"))
+    (sesion of sesion (ambiente 1))
     (rayuela of rayuela)
     (piedra of item)
+
+    (mensaje-aviso1 of mensaje-aviso (contenido "No te preocupes, ¡estos juegos son muy divertidos y lo estas haciendo genial,sigamos!")(ambiente 1))
+   ; (mensaje-aviso1 of mensaje-aviso (contenido "prueba aviso ambiente 2")(ambiente 2))
+    ;(mensaje-aviso1 of mensaje-aviso (contenido "Vamos a parar un poco y relajarnos, ¡que estos juegos cansan mucho, no pasa nada, seguimos en 5 minutos!")(ambiente 3))
+    ;(mensaje-aviso1 of mensaje-aviso (contenido "¡Si no quieres jugar más terminamos el juego, la próxima vez jugaremos más!")(ambiente 4))
+
+    (timido1 of personalidad (nombre "timido")(desviacion "Se ha puesto a llorar") (respuesta 3))
+    (timido2 of personalidad (nombre "timido")(desviacion "Se niega a seguir jugando")(respuesta 2))
+
+    (distraido1 of personalidad (nombre "distraido")(desviacion "Se levanta") (respuesta 3))
+    (distraido2 of personalidad (nombre "distraido")(desviacion "Se olvida de jugar")(respuesta 2))
 )
+
 (deffacts hechos-iniciales-rayuela
     (num 1)
     (num 2)
@@ -108,4 +137,5 @@
     (paso 1 "cielo")
     (paso 2 "recoger piedra")
     (paso 3 "inicio")
+    (max_ambiente 2)
 )

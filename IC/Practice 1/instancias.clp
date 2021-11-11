@@ -18,7 +18,7 @@
 
 (definstances instancias-iniciales-rayuela
     (paciente of nino (nombre "Carlos")(personalidad timido))
-    (NAO of robot (nombre "NAO"))
+    (NAO of robot (nombre "NAO") (saludo "¡Hola, soy el robot NAO! En esta sesión vamos hacer una serie de juegos para ver que tal se te dan. No te preocupes, ¡que seguro que se te da genial!. Los juegos serán la rayuela y los trileros, !a ver si me puedes ganar, buena suerte!") (despedida "Me ha gustado mucho jugar contigo, ¡nos vemos!"))
     (sesion of sesion)
     (rayuela of rayuela)
     (piedra of item)

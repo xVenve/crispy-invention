@@ -1,9 +1,9 @@
 (defrule empezar-sesion
     ?n <- (object (is-a nino) (nombre ?a))
-    ?r <- (object (is-a robot)(nombre ?b))
+    ?r <- (object (is-a robot)(nombre ?b)(saludo ?sa))
     ?s <- (object (is-a sesion)(tiempo 0))
 =>
-    (printout t "¡Hola " ?a ", soy el robot " ?b "! En esta sesión vamos hacer una serie de juegos para ver que tal se te dan. No te preocupes, ¡que seguro que se te da genial!. Los juegos serán la rayuela y los trileros, !a ver si me puedes ganar, buena suerte!" crlf)
+    (printout t ?sa crlf)
     (modify-instance ?s (tiempo 1))
     (assert (id-nombre 0 ?b))
     (assert (id-nombre 1 ?a))
@@ -32,7 +32,6 @@
     (printout t "He asignado al item " ?id " el valor " ?nm crlf)
 )
 
-; inicio-piedra-cielo-recoger-volver
 (defrule llegar
     (not (reinicio))
     (not (checkpoint))
@@ -41,12 +40,30 @@
     (not (object (is-a item) (valor -1)))
     (not (object (is-a puntuacion) (valor 3)))
     ?j <- (object (is-a juego) (paso ?g)(turno ?k))
-    (test (!= ?g 4))
+    (test (< ?g 4))
     (id-nombre ?k ?n)
     (paso ?g ?np)
 =>
     (modify-instance ?j (paso (+ 1 ?g)))
     (printout t "El jugador " ?n " ha llegado a la parte " ?np " sin caerse " crlf)
+)
+
+(defrule caerse
+    (not (reinicio))
+    (not (checkpoint))
+    ?it<- (fin-inicio)
+    ?s <- (object (is-a sesion)(tiempo 2))
+    (not (object (is-a item) (valor -1)))
+    (not (object (is-a puntuacion) (valor 3)))
+    ?j <- (object (is-a juego) (paso ?g)(turno ?k))
+    (test (!= ?g 4))
+    (id-nombre ?k ?n)
+    (paso ?g ?np)
+=>
+    (assert (checkpoint 3))
+    (modify-instance ?j (paso 0))
+    (printout t "El jugador " ?n " se ha caido en el paso " ?np ", cambio de turno " crlf)
+    (retract ?it)
 )
 
 (defrule fin-turno-rayuela
@@ -58,6 +75,35 @@
     (assert (checkpoint 1))
     (modify-instance ?j (paso 0))
     (retract ?it)
+)
+
+(defrule desviar
+    ;(not (reinicio))
+    ;(not (checkpoint))
+    ;?it <- (fin-inicio)
+    ?s <- (object (is-a sesion)(tiempo 2)(ambiente ?a))
+    ;(not (object (is-a item) (valor -1)))
+    (object (is-a nino)(personalidad ?pn))
+    (object (is-a personalidad) (nombre ?pn) (desviacion ?d) (respuesta ?r))
+    (object (is-a mensaje-aviso) (contenido ?ct) (ambiente ?a))
+    
+=>
+    (modify-instance ?s (ambiente (+ ?a ?r)))
+    (printout t "ambiente sesion " ?a crlf)
+    (printout t "ambiente mensaje "?a crlf)
+    (printout t ?d crlf)
+    (printout t ?ct crlf)
+    ;(retract ?it)
+)
+
+(defrule abandono
+    ?s <- (object (is-a sesion)(tiempo 2) (ambiente ?a))
+    (object (is-a individuo)(despedida ?d))
+    (max_ambiente ?ma) 
+    (test (>= ?a ?ma))
+=>    
+    (printout t ?d crlf)
+    (halt)
 )
 
 (defrule elegir-vaso
@@ -136,9 +182,10 @@
 (defrule ganar
     (object (is-a puntuacion) (valor 3)(jugador ?j))
     ?s <- (object (is-a sesion)(tiempo 2))
+    (object (is-a individuo)(despedida ?d))
     (id-nombre ?j ?n)
 =>
     (printout t "El jugador " ?n " ha ganado" crlf)
-    (printout t "Me ha gustado mucho jugar contigo, ¡nos vemos!" crlf)
+    (printout t ?d crlf)
     (halt)
 )
