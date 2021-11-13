@@ -22,11 +22,12 @@
 
 (defrule empezar-turno
     (not (reinicio))  
-    ?s <- (object (is-a sesion)(tiempo 2))
+    ?s <- (object (is-a sesion)(tiempo 2)(ambiente ?a)(max_ambiente ?ma))
     ?i <- (fin-inicio)
-    ?t <- (object (is-a item) (valor -1) (id ?id))
+    ?t <- (object (is-a item) (valor -1) (nombre ?id))
     (num ?nm)
     (not (object (is-a item) (valor ?nm))) 
+    (test (< ?a ?ma))
 => 
     (modify-instance ?t (valor ?nm))
     (printout t "He asignado al item " ?id " el valor " ?nm crlf)
@@ -39,8 +40,9 @@
     ?s <- (object (is-a sesion)(tiempo 2))
     (not (object (is-a item) (valor -1)))
     (not (object (is-a puntuacion) (valor 3)))
-    ?j <- (object (is-a juego) (paso ?g)(turno ?k))
+    ?j <- (object (is-a rayuela)(paso ?g)(turno ?k))
     (test (< ?g 4))
+    (num ?nm)
     (id-nombre ?k ?n)
     (paso ?g ?np)
 =>
@@ -48,21 +50,22 @@
     (printout t "El jugador " ?n " ha llegado a la parte " ?np " sin caerse " crlf)
 )
 
-(defrule caerse
+(defrule fallo-juego
     (not (reinicio))
     (not (checkpoint))
     ?it<- (fin-inicio)
     ?s <- (object (is-a sesion)(tiempo 2))
     (not (object (is-a item) (valor -1)))
     (not (object (is-a puntuacion) (valor 3)))
-    ?j <- (object (is-a juego) (paso ?g)(turno ?k))
+    ?j <- (object (is-a juego)(paso ?g)(turno ?k))
+    (object (is-a mensaje-desviacion)(mensaje ?m))
     (test (!= ?g 4))
     (id-nombre ?k ?n)
     (paso ?g ?np)
 =>
     (assert (checkpoint 3))
     (modify-instance ?j (paso 0))
-    (printout t "El jugador " ?n " se ha caido en el paso " ?np ", cambio de turno " crlf)
+    (printout t "El jugador " ?n ?m ?np ", cambio de turno " crlf)
     (retract ?it)
 )
 
@@ -78,28 +81,26 @@
 )
 
 (defrule desviar
-    ;(not (reinicio))
-    ;(not (checkpoint))
-    ;?it <- (fin-inicio)
+    (not (reinicio))
+    (not (checkpoint))
+    ?it <- (fin-inicio)
     ?s <- (object (is-a sesion)(tiempo 2)(ambiente ?a))
-    ;(not (object (is-a item) (valor -1)))
+    (not (object (is-a item) (valor -1)))
     (object (is-a nino)(personalidad ?pn))
+    (object (is-a juego) (paso ?g)(turno 1))
     (object (is-a personalidad) (nombre ?pn) (desviacion ?d) (respuesta ?r))
-    (object (is-a mensaje-aviso) (contenido ?ct) (ambiente ?a))
-    
+    (object (is-a mensaje-aviso) (contenido ?ct) (ambiente ?a))  
 =>
     (modify-instance ?s (ambiente (+ ?a ?r)))
-    (printout t "ambiente sesion " ?a crlf)
-    (printout t "ambiente mensaje "?a crlf)
     (printout t ?d crlf)
     (printout t ?ct crlf)
-    ;(retract ?it)
+    (assert (reinicio))
+    (retract ?it)
 )
 
 (defrule abandono
-    ?s <- (object (is-a sesion)(tiempo 2) (ambiente ?a))
+    ?s <- (object (is-a sesion)(tiempo 2)(ambiente ?a)(max_ambiente ?ma))
     (object (is-a individuo)(despedida ?d))
-    (max_ambiente ?ma) 
     (test (>= ?a ?ma))
 =>    
     (printout t ?d crlf)
@@ -111,8 +112,8 @@
     (not (checkpoint))
     ?it <- (fin-inicio)
     ?s <- (object (is-a sesion)(tiempo 2))
-    (not (object (is-a item) (valor -1)))
-    (not (object (is-a puntuacion) (valor 3)))
+    (not (object (is-a item)(valor -1)))
+    (not (object (is-a puntuacion)(valor 3)))
     (num ?nm)
     (object (is-a item)(id ?nm)(valor ?x))
     (pelota ?x ?np)
@@ -133,7 +134,7 @@
     (modify-instance ?j (turno (- 1 ?g)))
     (retract ?c)
     (assert (reinicio))
-    (printout t "El jugador " ?n " ha ganado un punto." crlf)
+    (printout t "El jugador " ?n " ha ganado un punto" crlf)
 )
 
 (defrule resta-punto
@@ -142,12 +143,27 @@
     ?p <- (object (is-a puntuacion) (jugador ?g)(valor ?v))
     ?j <- (object (is-a juego) (turno ?g))
     (id-nombre ?g ?n)
+    (test (> ?v 0))
 =>
     (modify-instance ?p (valor (- ?v 1))) 
     (modify-instance ?j (turno (- 1 ?g)))
     (retract ?c)
     (assert (reinicio))
     (printout t "El jugador " ?n " ha perdido un punto." crlf)
+)
+
+(defrule puntuacion-cero
+   (not (reinicio))   
+    ?c <- (checkpoint 2)
+    ?p <- (object (is-a puntuacion) (jugador ?g)(valor ?v))
+    ?j <- (object (is-a juego) (turno ?g))
+    (id-nombre ?g ?n)
+    (test (= ?v 0))
+=> 
+    (modify-instance ?j (turno (- 1 ?g)))
+    (retract ?c)
+    (assert (reinicio))
+    (printout t "El jugador " ?n " ha perdido un punto, pero se queda en 0." crlf)
 )
 
 (defrule sin-punto
@@ -180,7 +196,7 @@
 )
 
 (defrule ganar
-    (object (is-a puntuacion) (valor 3)(jugador ?j))
+    (object (is-a puntuacion)(valor 3)(jugador ?j))
     ?s <- (object (is-a sesion)(tiempo 2))
     (object (is-a individuo)(despedida ?d))
     (id-nombre ?j ?n)
