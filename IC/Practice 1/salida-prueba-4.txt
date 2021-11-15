@@ -1,37 +1,70 @@
 ¡Hola, soy el robot NAO! En esta sesión vamos a hacer una serie de juegos para ver que tal se te dan. No te preocupes, ¡que seguro que se te da genial!. Los juegos serán la rayuela y los trileros, !a ver si me puedes ganar, buena suerte!
 !Vamos a jugar a la rayuela! En este juego lanzaremos una piedra dentro de las casillas que tenemos pintadas en el suelo, entonces saltando a la pata coja deberemos ir desde la casilla inicial hasta el cielo sin pisar la casilla en la que ha caído la piedra y volver. Quien logre hacer 3 vueltas gana. !Cuidado no te caigas, y mucha suerte!
+He asignado al item piedra el valor 9
+El jugador NAO ha llegado a la parte piedra sin caerse 
+El jugador NAO ha llegado a la parte cielo sin caerse 
+El jugador NAO ha llegado a la parte recoger piedra sin caerse 
+El jugador NAO ha llegado a la parte inicio sin caerse 
+El jugador NAO ha ganado un punto
 He asignado al item piedra el valor 10
+El jugador Estefanía ha llegado a la parte piedra sin caerse 
+El jugador Estefanía ha llegado a la parte cielo sin caerse 
+El jugador Estefanía ha pisado la línea en el paso recoger piedra, cambio de turno 
+El jugador Estefanía no ha ganado un punto.
+He asignado al item piedra el valor 1
+El jugador NAO ha llegado a la parte piedra sin caerse 
+El jugador NAO ha llegado a la parte cielo sin caerse 
+El jugador NAO se ha caído en el paso recoger piedra, cambio de turno 
+El jugador NAO no ha ganado un punto.
+He asignado al item piedra el valor 2
+El jugador Estefanía ha llegado a la parte piedra sin caerse 
+El jugador Estefanía ha llegado a la parte cielo sin caerse 
+El jugador Estefanía ha llegado a la parte recoger piedra sin caerse 
+El jugador Estefanía ha llegado a la parte inicio sin caerse 
+Se aburre
+No te preocupes, ¡estos juegos son muy divertidos y lo estás haciendo genial, sigamos!
+He asignado al item piedra el valor 5
+Se aburre
+Vamos a parar un poco y relajarnos, ¡que estos juegos cansan mucho, no pasa nada, seguimos en 5 minutos!
+El jugador Estefanía ha ganado un punto
+He asignado al item piedra el valor 9
 El jugador NAO ha llegado a la parte piedra sin caerse 
 El jugador NAO ha llegado a la parte cielo sin caerse 
 El jugador NAO ha llegado a la parte recoger piedra sin caerse 
 El jugador NAO ha llegado a la parte inicio sin caerse 
 El jugador NAO ha ganado un punto
 He asignado al item piedra el valor 6
-Se aburre
-No te preocupes, ¡estos juegos son muy divertidos y lo estás haciendo genial, sigamos!
-He asignado al item piedra el valor 8
-El jugador Estefania ha llegado a la parte piedra sin caerse 
-El jugador Estefania ha llegado a la parte cielo sin caerse 
-El jugador Estefania ha pisado la linea en el paso recoger piedra, cambio de turno 
-El jugador Estefania no ha ganado un punto.
+El jugador Estefanía ha llegado a la parte piedra sin caerse 
+El jugador Estefanía ha llegado a la parte cielo sin caerse 
+El jugador Estefanía se ha caído en el paso recoger piedra, cambio de turno 
+El jugador Estefanía no ha ganado un punto.
 He asignado al item piedra el valor 2
 El jugador NAO ha llegado a la parte piedra sin caerse 
-El jugador NAO ha llegado a la parte cielo sin caerse 
-El jugador NAO ha pisado la linea en el paso recoger piedra, cambio de turno 
-El jugador NAO no ha ganado un punto.
-He asignado al item piedra el valor 3
-El jugador Estefania ha llegado a la parte piedra sin caerse 
-El jugador Estefania ha llegado a la parte cielo sin caerse 
-El jugador Estefania ha llegado a la parte recoger piedra sin caerse 
-El jugador Estefania ha llegado a la parte inicio sin caerse 
-Se enfada
-Vamos a parar un poco y relajarnos, ¡que estos juegos cansan mucho, no pasa nada, seguimos en 5 minutos!
-El jugador Estefania ha ganado un punto
-He asignado al item piedra el valor 4
-El jugador NAO ha llegado a la parte piedra sin caerse 
-El jugador NAO ha pisado la linea en el paso cielo, cambio de turno 
+El jugador NAO ha pisado la línea en el paso cielo, cambio de turno 
 El jugador NAO no ha ganado un punto.
 He asignado al item piedra el valor 1
+El jugador Estefanía ha llegado a la parte piedra sin caerse 
+El jugador Estefanía ha llegado a la parte cielo sin caerse 
+El jugador Estefanía ha llegado a la parte recoger piedra sin caerse 
 Se enfada
-¡Si no quieres jugar más terminamos el juego, la próxima vez jugaremos más!
+Por favor, tomatelo en serio que este juego es bueno para ti
+He asignado al item piedra el valor 1
+El jugador Estefanía ha llegado a la parte inicio sin caerse 
+Se enfada
+Tomemos un descanso, ¡que este juego cansan mucho, seguimos en 10 minutos!
+El jugador Estefanía ha ganado un punto
+He asignado al item piedra el valor 9
+El jugador NAO ha llegado a la parte piedra sin caerse 
+El jugador NAO ha llegado a la parte cielo sin caerse 
+El jugador NAO ha llegado a la parte recoger piedra sin caerse 
+El jugador NAO se ha caído en el paso inicio, cambio de turno 
+El jugador NAO no ha ganado un punto.
+He asignado al item piedra el valor 9
+El jugador Estefanía ha llegado a la parte piedra sin caerse 
+El jugador Estefanía ha llegado a la parte cielo sin caerse 
+El jugador Estefanía ha llegado a la parte recoger piedra sin caerse 
+El jugador Estefanía ha llegado a la parte inicio sin caerse 
+El jugador Estefanía ha ganado un punto
+He asignado al item piedra el valor 4
+El jugador Estefanía ha ganado
 Me ha gustado mucho jugar contigo, ¡nos vemos!

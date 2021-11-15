@@ -1,18 +1,22 @@
-;; Rayuela con paciente Nervioso
+;; Rayuela con paciente Nervioso con extra de paciencia
 (definstances instancias-iniciales-rayuela
-    (paciente of nino (nombre "Estefania")(personalidad "nervioso"))
+    (paciente of nino (nombre "Estefanía")(personalidad "nervioso"))
     (NAO of robot (nombre "NAO") (saludo "¡Hola, soy el robot NAO! En esta sesión vamos a hacer una serie de juegos para ver que tal se te dan. No te preocupes, ¡que seguro que se te da genial!. Los juegos serán la rayuela y los trileros, !a ver si me puedes ganar, buena suerte!") (despedida "Me ha gustado mucho jugar contigo, ¡nos vemos!"))
 
-    (sesion of sesion (ambiente 1)(max_ambiente 5))
+    (sesion of sesion (ambiente 1)(max_ambiente 9))
     (rayuela of rayuela)
-    (mensaje-rayuela1 of mensaje-desviacion (mensaje " ha pisado la linea en el paso "))
+    (mensaje-rayuela1 of mensaje-desviacion (mensaje " ha pisado la línea en el paso "))
     (mensaje-rayuela2 of mensaje-desviacion (mensaje " se ha caído en el paso "))
     (piedra of item (id -1)(nombre "piedra"))
 
     (mensaje-aviso1 of mensaje-aviso (contenido "No te preocupes, ¡estos juegos son muy divertidos y lo estás haciendo genial, sigamos!")(ambiente 1))
     (mensaje-aviso2 of mensaje-aviso (contenido "Venga, ¡intentémoslo una vez más!")(ambiente 2))
     (mensaje-aviso3 of mensaje-aviso (contenido "Vamos a parar un poco y relajarnos, ¡que estos juegos cansan mucho, no pasa nada, seguimos en 5 minutos!")(ambiente 3))
-    (mensaje-aviso4 of mensaje-aviso (contenido "¡Si no quieres jugar más terminamos el juego, la próxima vez jugaremos más!")(ambiente 4))
+    (mensaje-aviso4 of mensaje-aviso (contenido "¡Vamos, no te pongas así, que nos lo estamoos pasando genial!")(ambiente 4))
+    (mensaje-aviso5 of mensaje-aviso (contenido "Por favor, tomatelo en serio que este juego es bueno para ti")(ambiente 5))
+    (mensaje-aviso6 of mensaje-aviso (contenido "Tomemos un descanso, ¡que este juego cansan mucho, seguimos en 10 minutos!")(ambiente 6))
+    (mensaje-aviso7 of mensaje-aviso (contenido "Esta es la última oportunidad, ¡jueguemos!")(ambiente 7))
+    (mensaje-aviso8 of mensaje-aviso (contenido "¡Si no quieres jugar más terminamos el juego, la próxima vez jugaremos más!")(ambiente 8))
 
     (nervioso1 of personalidad (nombre "nervioso")(desviacion "Se aburre") (respuesta 2))
     (nervioso2 of personalidad (nombre "nervioso")(desviacion "Se enfada")(respuesta 1))

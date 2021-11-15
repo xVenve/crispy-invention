@@ -5,7 +5,7 @@
 
     (sesion of sesion (ambiente 1)(max_ambiente 5))
     (rayuela of rayuela)
-    (mensaje-rayuela1 of mensaje-desviacion (mensaje " ha pisado la linea en el paso "))
+    (mensaje-rayuela1 of mensaje-desviacion (mensaje " ha pisado la línea en el paso "))
     (mensaje-rayuela2 of mensaje-desviacion (mensaje " se ha caído en el paso "))
     (piedra of item (id -1)(nombre "piedra"))
 
