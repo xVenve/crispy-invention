@@ -3,6 +3,8 @@
     ?r <- (object (is-a robot)(nombre ?b)(saludo ?sa))
     ?s <- (object (is-a sesion)(tiempo 0))
 =>
+    (set-strategy random)
+    (dribble-on salida-prueba-X.txt)
     (printout t ?sa crlf)
     (modify-instance ?s (tiempo 1))
     (assert (id-nombre 0 ?b))
@@ -104,6 +106,7 @@
     (test (>= ?a ?ma))
 =>    
     (printout t ?d crlf)
+    (dribble-off)
     (halt)
 )
 
@@ -203,5 +206,6 @@
 =>
     (printout t "El jugador " ?n " ha ganado" crlf)
     (printout t ?d crlf)
+    (dribble-off)
     (halt)
 )

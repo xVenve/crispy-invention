@@ -1,0 +1,103 @@
+¡Hola, soy el robot NAO! En esta sesión vamos a hacer una serie de juegos para ver que tal se te dan. No te preocupes, ¡que seguro que se te da genial!. Los juegos serán la rayuela y los trileros, !a ver si me puedes ganar, buena suerte!
+!Vamos a jugar a los trileros! Para este juego tendremos 3 vasos y 2 pelotas. Voy a esconder las pelotas dentro de los vasos y voy a empezar a moverlos. Cuando termine de moverlos me tienes que decir qué vaso tiene bola. Si fallas será mi turno, pero si aciertas, ganas un punto y tu turno sigue. El que llegue a 3 puntos gana. !Señala y levanta bien el vaso, seguro que me ganas, vamos a empezar!
+He asignado al item vaso el valor 1
+He asignado al item vaso el valor 2
+He asignado al item vaso el valor 3
+El jugador NAO ha tirado un vaso al elegir, cambio de turno 
+El jugador NAO no ha ganado un punto.
+He asignado al item vaso el valor 1
+He asignado al item vaso el valor 2
+He asignado al item vaso el valor 3
+Se niega a seguir jugando
+No te preocupes, ¡estos juegos son muy divertidos y lo estás haciendo genial, sigamos!
+He asignado al item vaso el valor 3
+He asignado al item vaso el valor 1
+He asignado al item vaso el valor 2
+Se ha elegido el vaso 2 con pelota nada
+El jugador Carlos no ha ganado un punto.
+He asignado al item vaso el valor 2
+He asignado al item vaso el valor 1
+He asignado al item vaso el valor 3
+Se ha elegido el vaso 2 con pelota verde
+El jugador NAO ha ganado un punto
+He asignado al item vaso el valor 1
+He asignado al item vaso el valor 2
+He asignado al item vaso el valor 3
+El jugador Carlos ha tirado un vaso al elegir, cambio de turno 
+El jugador Carlos no ha ganado un punto.
+He asignado al item vaso el valor 1
+He asignado al item vaso el valor 2
+He asignado al item vaso el valor 3
+Se ha elegido el vaso 1 con pelota nada
+El jugador NAO no ha ganado un punto.
+He asignado al item vaso el valor 2
+He asignado al item vaso el valor 1
+He asignado al item vaso el valor 3
+Se ha elegido el vaso 2 con pelota nada
+El jugador Carlos no ha ganado un punto.
+He asignado al item vaso el valor 1
+He asignado al item vaso el valor 3
+He asignado al item vaso el valor 2
+Se ha elegido el vaso 1 con pelota roja
+El jugador NAO ha perdido un punto.
+He asignado al item vaso el valor 3
+He asignado al item vaso el valor 1
+He asignado al item vaso el valor 2
+Se ha puesto a llorar
+Venga, ¡intentémoslo una vez más!
+He asignado al item vaso el valor 1
+He asignado al item vaso el valor 2
+He asignado al item vaso el valor 3
+Se ha elegido el vaso 1 con pelota nada
+El jugador Carlos no ha ganado un punto.
+He asignado al item vaso el valor 1
+He asignado al item vaso el valor 3
+He asignado al item vaso el valor 2
+El jugador NAO ha tirado un vaso al elegir, cambio de turno 
+El jugador NAO no ha ganado un punto.
+He asignado al item vaso el valor 2
+He asignado al item vaso el valor 3
+He asignado al item vaso el valor 1
+El jugador Carlos ha tirado un vaso al elegir, cambio de turno 
+El jugador Carlos no ha ganado un punto.
+He asignado al item vaso el valor 2
+He asignado al item vaso el valor 1
+He asignado al item vaso el valor 3
+Se ha elegido el vaso 1 con pelota roja
+El jugador NAO ha perdido un punto, pero se queda en 0.
+He asignado al item vaso el valor 2
+He asignado al item vaso el valor 1
+He asignado al item vaso el valor 3
+El jugador Carlos ha tirado un vaso al elegir, cambio de turno 
+El jugador Carlos no ha ganado un punto.
+He asignado al item vaso el valor 3
+He asignado al item vaso el valor 2
+He asignado al item vaso el valor 1
+Se ha elegido el vaso 1 con pelota roja
+El jugador NAO ha perdido un punto, pero se queda en 0.
+He asignado al item vaso el valor 1
+He asignado al item vaso el valor 2
+He asignado al item vaso el valor 3
+Se ha elegido el vaso 3 con pelota nada
+El jugador Carlos no ha ganado un punto.
+He asignado al item vaso el valor 1
+He asignado al item vaso el valor 2
+He asignado al item vaso el valor 3
+Se ha elegido el vaso 3 con pelota verde
+El jugador NAO ha ganado un punto
+He asignado al item vaso el valor 2
+He asignado al item vaso el valor 3
+He asignado al item vaso el valor 1
+Se ha elegido el vaso 3 con pelota nada
+El jugador Carlos no ha ganado un punto.
+He asignado al item vaso el valor 3
+He asignado al item vaso el valor 2
+He asignado al item vaso el valor 1
+Se ha elegido el vaso 1 con pelota verde
+El jugador NAO ha ganado un punto
+He asignado al item vaso el valor 2
+He asignado al item vaso el valor 3
+He asignado al item vaso el valor 1
+Se niega a seguir jugando
+¡Si no quieres jugar más terminamos el juego, la próxima vez jugaremos más!
+Me ha gustado mucho jugar contigo, ¡nos vemos!
