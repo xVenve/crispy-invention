@@ -120,6 +120,7 @@
     (num ?nm)
     (object (is-a item)(id ?nm)(valor ?x))
     (pelota ?x ?np)
+    (num ?nm2)
 =>
     (printout t "Se ha elegido el vaso " ?nm  " con pelota " ?np crlf)
     (assert (checkpoint ?x))
