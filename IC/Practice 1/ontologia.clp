@@ -14,51 +14,64 @@
 (defclass robot (is-a individuo)
     (slot saludo
         (type STRING)
+        (default ?NONE)
     )
     (slot despedida
         (type STRING)
+        (default ?NONE)
     )
 )
 
 (defclass sesion (is-a USER)
     (slot tiempo
         (type INTEGER)
+        (range 0 2)
         (default 0)
     )
     (slot ambiente
         (type INTEGER)
+        (range 0 10)
         (default 1)
     )
     (slot max_ambiente 
-        (type INTEGER)    
+        (type INTEGER)
+        (range 0 10)
+        (default 1)    
     )
 )
 
 (defclass mensaje-aviso (is-a USER)
     (slot contenido
         (type STRING)
+        (default ?NONE)
     )
     (slot ambiente
         (type INTEGER)
+        (range 0 10)
+        (default 1)
     )
 )
 
 (defclass juego (is-a USER)
     (slot reglas
         (type STRING)
+        (default ?NONE)
     )
     (slot turno
         (type INTEGER)
+        (range 0 1)
         (default 0)
     )
     (slot paso
         (type INTEGER)
+        (range 0 4)
         (default 0)
     )
 )
 (defclass mensaje-desviacion (is-a USER)
     (slot mensaje 
         (type STRING)
+        (default ?NONE)
     )
 )
 
@@ -78,13 +91,17 @@
 
 (defclass item (is-a USER)
     (slot nombre
-        (type STRING))
+        (type STRING)
+        (default ?NONE)
+    )    
     (slot valor 
         (type INTEGER)
+        (range -1 10)
         (default -1)
     )
     (slot id
         (type SYMBOL)
+        (default ?NONE)
     )
 )
 
@@ -92,10 +109,11 @@
     (slot jugador
         (type INTEGER)
         (range 0 1)
+        (default 0)
     )
     (slot valor
         (type INTEGER)
-        (range 0 100)
+        (range 0 3)
         (default 0)
     )
 )
@@ -103,11 +121,14 @@
 (defclass personalidad (is-a USER)
     (slot nombre
         (type SYMBOL)
+        (default ?NONE)
     )
     (slot desviacion
         (type STRING)
+        (default ?NONE)
     )
     (slot respuesta
         (type INTEGER)
+        (default ?NONE)
     )
 )
