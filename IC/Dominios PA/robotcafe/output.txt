@@ -1,0 +1,47 @@
+
+ff: parsing domain file
+domain 'ROBOTCAFE' defined
+ ... done.
+ff: parsing problem file
+problem 'ROBOTCAFE-P1' defined
+ ... done.
+
+
+no metric specified. plan length assumed.
+
+checking for cyclic := effects --- OK.
+
+Evaluation function -1.000000*g(s) + -1.000000*h(s) where
+ metric is plan length
+
+Cueing down from goal distance:    8 into depth [1]
+                                   7            [1]
+                                   6            [1][2]
+                                   5            [1]
+                                   4            [1]
+                                   3            [1]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+ff: found legal plan as follows
+
+step    0: (TOMAR-COMANDA P2 P2 CAFE TE BARRA)
+        1: (TOMAR-COMANDA P1 P1 TE TE BARRA)
+        2: (MOVERSE BARRA CAFETERA)
+        3: (HACER-BEBIDA P2 CAFE CAFETERA BARRA)
+        4: (MOVERSE CAFETERA TETERA)
+        5: (HACER-BEBIDA P1 TE TETERA BARRA)
+        6: (MOVERSE TETERA BARRA)
+        7: (ENTREGAR-COMANDA P2 CAFE TE BARRA BARRA)
+        8: (ENTREGAR-COMANDA P1 TE TE BARRA BARRA)
+     
+
+time spent:    0.00 seconds instantiating 61 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 16 facts and 35 actions
+               0.00 seconds creating final representation with 16 relevant facts, 0 relevant fluents
+               0.00 seconds computing LNF
+               0.00 seconds building connectivity graph
+               0.00 seconds searching, evaluating 16 states, to a max depth of 2
+               0.00 seconds total time
+
