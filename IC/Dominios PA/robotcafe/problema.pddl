@@ -1,10 +1,11 @@
 (define (problem ROBOTCAFE-P1)
-(:domain ROBOTCAFE)
+    (:domain ROBOTCAFE)
     (:objects
-        p1 p2 - persona 
+        p1 p2 - persona
         cafetera tetera barra - lugar
-        cafe te - bebida)
-    (:init 
+        cafe te - bebida
+    )
+    (:init
         (en barra)
         (lugar-servicio barra)
         (comanda te p1)
@@ -12,7 +13,9 @@
         (produce cafetera cafe)
         (produce tetera te)
     )
-    (:goal (and 
-        (entregado p2) 
-        (entregado p1)))
+    (:goal
+        (and
+            (entregado p2)
+            (entregado p1))
+    )
 )
