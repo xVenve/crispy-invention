@@ -46,6 +46,7 @@
         )
         :effect (and
             (not (bloqueo ?l1 ?l2))
+            (not (bloqueo ?l2 ?l1))
         )
     )
     (:action moverse-a-preparar-llamada
