@@ -1,0 +1,64 @@
+
+ff: parsing domain file
+domain 'ROBOT-TELEFONISTA' defined
+ ... done.
+ff: parsing problem file
+problem 'ROBOT-TELEFONISTA-P5' defined
+ ... done.
+
+
+no metric specified. plan length assumed.
+
+checking for cyclic := effects --- OK.
+
+Evaluation function -1.000000*g(s) + -1.000000*h(s) where
+ metric is plan length
+
+Cueing down from goal distance:   13 into depth  --- pruning stopped --- [1]
+                                  12            [1][2]
+                                  11            [1]
+                                  10            [1]
+                                   9            [1][2]
+                                   8            [1][2]
+                                   7            [1]
+                                   6            [1]
+                                   5            [1][2]
+                                   4            [1]
+                                   3            [1] --- pruning stopped --- [1][2][3][4][5]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+ff: found legal plan as follows
+
+step    0: (PASAR-TIEMPO ESTACION)
+        1: (MOVERSE-A-PREPARAR-LLAMADA ESTACION ENFERMERIA FAMILIAR3 PACIENTE2)
+        2: (PEDIR-DESINFECCION ENFERMERIA ENFERMERO)
+        3: (PEDIR-ABRIR-HABITACION ENFERMERIA HABITACION2 CELADOR FAMILIAR3 PACIENTE2)
+        4: (PEDIR-ABRIR-HABITACION ENFERMERIA HABITACION1 CELADOR FAMILIAR1 PACIENTE1)
+        5: (MOVERSE ENFERMERIA HABITACION2)
+        6: (QUITAR-BLOQUEO HABITACION2 HABITACION1 CELADOR)
+        7: (SALUDAR-AVISAR-LLAMADA-PACIENTE FAMILIAR3 PACIENTE2 HABITACION2)
+        8: (CANCELADA-LLAMADA FAMILIAR3 PACIENTE2)
+        9: (DESINFECCION-POST-LLAMADA HABITACION2 FAMILIAR3 PACIENTE2)
+       10: (MOVERSE HABITACION2 HABITACION1)
+       11: (SALUDAR-AVISAR-LLAMADA-PACIENTE FAMILIAR1 PACIENTE1 HABITACION1)
+       12: (CANCELADA-LLAMADA FAMILIAR1 PACIENTE1)
+       13: (DESINFECCION-POST-LLAMADA HABITACION1 FAMILIAR1 PACIENTE1)
+       14: (MOVERSE-A-CARGA HABITACION1 ESTACION)
+       15: (PASAR-TIEMPO ESTACION)
+       16: (MOVERSE-A-PREPARAR-LLAMADA ESTACION ENFERMERIA FAMILIAR2 PACIENTE1)
+       17: (PEDIR-DESINFECCION ENFERMERIA ENFERMERO)
+       18: (MOVERSE ENFERMERIA HABITACION1)
+       19: (TRASCURRE-LLAMADA FAMILIAR2 PACIENTE1 HABITACION1)
+       20: (MOVERSE-A-CARGA HABITACION1 ESTACION)
+     
+
+time spent:    0.01 seconds instantiating 72 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 48 facts and 38 actions
+               0.00 seconds creating final representation with 29 relevant facts, 2 relevant fluents
+               0.00 seconds computing LNF
+               0.00 seconds building connectivity graph
+               0.00 seconds searching, evaluating 41 states, to a max depth of 5
+               0.01 seconds total time
+

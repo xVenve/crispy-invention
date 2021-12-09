@@ -34,5 +34,5 @@
             (desinfectado)
             (not (cita familiar1 paciente1))
             (not (cita familiar2 paciente1)))
-        )
+    )
 )

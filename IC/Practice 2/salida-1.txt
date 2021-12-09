@@ -1,0 +1,56 @@
+
+ff: parsing domain file
+domain 'ROBOT-TELEFONISTA' defined
+ ... done.
+ff: parsing problem file
+problem 'ROBOT-TELEFONISTA-P1' defined
+ ... done.
+
+
+no metric specified. plan length assumed.
+
+checking for cyclic := effects --- OK.
+
+Evaluation function -1.000000*g(s) + -1.000000*h(s) where
+ metric is plan length
+
+Cueing down from goal distance:    9 into depth  --- pruning stopped --- [1]
+                                   8            [1][2]
+                                   7            [1]
+                                   6            [1]
+                                   5            [1][2][3]
+                                   4            [1] --- pruning stopped --- [1][2][3][4][5]
+                                   3            [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+ff: found legal plan as follows
+
+step    0: (PASAR-TIEMPO ESTACION)
+        1: (MOVERSE-A-PREPARAR-LLAMADA ESTACION ENFERMERIA FAMILIAR1 PACIENTE1)
+        2: (PEDIR-DESINFECCION ENFERMERIA ENFERMERO)
+        3: (PEDIR-ABRIR-HABITACION ENFERMERIA HABITACION1 CELADOR FAMILIAR1 PACIENTE1)
+        4: (MOVERSE ENFERMERIA HABITACION1)
+        5: (SALUDAR-AVISAR-LLAMADA-PACIENTE FAMILIAR1 PACIENTE1 HABITACION1)
+        6: (TRASCURRE-LLAMADA FAMILIAR1 PACIENTE1 HABITACION1)
+        7: (DESINFECCION-POST-LLAMADA HABITACION1 FAMILIAR1 PACIENTE1)
+        8: (MOVERSE-A-CARGA HABITACION1 ESTACION)
+        9: (PASAR-TIEMPO ESTACION)
+       10: (MOVERSE-A-PREPARAR-LLAMADA ESTACION ENFERMERIA FAMILIAR2 PACIENTE1)
+       11: (PEDIR-DESINFECCION ENFERMERIA ENFERMERO)
+       12: (MOVERSE ENFERMERIA HABITACION1)
+       13: (SALUDAR-AVISAR-LLAMADA-PACIENTE FAMILIAR2 PACIENTE1 HABITACION1)
+       14: (TRASCURRE-LLAMADA FAMILIAR2 PACIENTE1 HABITACION1)
+       15: (DESINFECCION-POST-LLAMADA HABITACION1 FAMILIAR2 PACIENTE1)
+       16: (MOVERSE-A-CARGA HABITACION1 ESTACION)
+     
+
+time spent:    0.00 seconds instantiating 23 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 19 facts and 21 actions
+               0.00 seconds creating final representation with 17 relevant facts, 2 relevant fluents
+               0.00 seconds computing LNF
+               0.00 seconds building connectivity graph
+               0.00 seconds searching, evaluating 29 states, to a max depth of 5
+               0.00 seconds total time
+

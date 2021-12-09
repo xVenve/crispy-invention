@@ -17,6 +17,7 @@
         (en-p paciente3 habitacion3)
         (en-p paciente4 habitacion4)
         (en-p paciente5 habitacion5)
+        (en-p paciente6 habitacion6)
 
         (bloqueo habitacion1 habitacion2)
         (bloqueo habitacion2 habitacion1)
@@ -41,6 +42,7 @@
         (en-p celador2 habitacion3)
         (en-p celador2 habitacion4)
         (en-p celador3 habitacion5)
+        (en-p celador3 habitacion6)
 
         (cita familiar1 paciente1)
         (= (hora-cita familiar1 paciente1) 10)

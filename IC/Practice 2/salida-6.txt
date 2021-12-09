@@ -1,0 +1,11 @@
+
+ff: parsing domain file
+domain 'ROBOT-TELEFONISTA' defined
+ ... done.
+ff: parsing problem file
+problem 'ROBOT-TELEFONISTA-P6' defined
+ ... done.
+
+
+ff: goal can be simplified to FALSE. No plan will solve it
+

@@ -1,0 +1,146 @@
+
+ff: parsing domain file
+domain 'ROBOT-TELEFONISTA' defined
+ ... done.
+ff: parsing problem file
+problem 'ROBOT-TELEFONISTA-P7' defined
+ ... done.
+
+
+no metric specified. plan length assumed.
+
+checking for cyclic := effects --- OK.
+
+Evaluation function -1.000000*g(s) + -1.000000*h(s) where
+ metric is plan length
+
+Cueing down from goal distance:   44 into depth [1]
+                                  43            [1]
+                                  42            [1]
+                                  41             --- pruning stopped --- [1]
+                                  40             --- pruning stopped --- [1]
+                                  39            [1][2]
+                                  38            [1]
+                                  37            [1]
+                                  36            [1][2]
+                                  35            [1][2][3]
+                                  34            [1] --- pruning stopped --- [1][2][3][4][5]
+                                  33            [1]
+                                  32            [1]
+                                  31            [1][2]
+                                  30            [1]
+                                  29            [1]
+                                  28            [1] --- pruning stopped --- [1][2][3][4][5]
+                                  27            [1]
+                                  26            [1]
+                                  25            [1]
+                                  24            [1][2]
+                                  23            [1]
+                                  22            [1]
+                                  21            [1][2]
+                                  20            [1]
+                                  19            [1]
+                                  18            [1] --- pruning stopped --- [1][2][3]
+                                  17             --- pruning stopped --- [1]
+                                  16            [1][2][3]
+                                  15            [1][2]
+                                  14            [1]
+                                  13            [1] --- pruning stopped --- [1][2]
+                                  12            [1][2][3]
+                                  11            [1]
+                                  10            [1][2]
+                                   9            [1]
+                                   8            [1] --- pruning stopped --- [1][2]
+                                   7             --- pruning stopped --- [1]
+                                   6             --- pruning stopped --- [1]
+                                   5            [1][2][3]
+                                   4            [1]
+                                   3            [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+ff: found legal plan as follows
+
+step    0: (QUITAR-BLOQUEO ESTACION ENFERMERIAA ENFERMERO1)
+        1: (CANCELADA-LLAMADA FAMILIAR7 PACIENTE6)
+        2: (CANCELADA-LLAMADA FAMILIAR6 PACIENTE5)
+        3: (PASAR-TIEMPO ESTACION)
+        4: (PASAR-TIEMPO ESTACION)
+        5: (MOVERSE-A-PREPARAR-LLAMADA ESTACION ENFERMERIAA FAMILIAR1 PACIENTE1)
+        6: (QUITAR-BLOQUEO ENFERMERIAA HABITACION3 CELADOR2)
+        7: (PEDIR-DESINFECCION ENFERMERIAA ENFERMERO1)
+        8: (PEDIR-ABRIR-HABITACION ENFERMERIAA HABITACION1 CELADOR1 FAMILIAR1 PACIENTE1)
+        9: (MOVERSE ENFERMERIAA HABITACION1)
+       10: (QUITAR-BLOQUEO HABITACION1 HABITACION2 CELADOR1)
+       11: (SALUDAR-AVISAR-LLAMADA-PACIENTE FAMILIAR1 PACIENTE1 HABITACION1)
+       12: (TRASCURRE-LLAMADA FAMILIAR1 PACIENTE1 HABITACION1)
+       13: (DESINFECCION-POST-LLAMADA HABITACION1 FAMILIAR1 PACIENTE1)
+       14: (MOVERSE-A-CARGA HABITACION1 ESTACION)
+       15: (PASAR-TIEMPO ESTACION)
+       16: (PASAR-TIEMPO ESTACION)
+       17: (MOVERSE-A-PREPARAR-LLAMADA ESTACION ENFERMERIAA FAMILIAR2 PACIENTE2)
+       18: (PEDIR-DESINFECCION ENFERMERIAA ENFERMERO1)
+       19: (PEDIR-ABRIR-HABITACION ENFERMERIAA HABITACION2 CELADOR1 FAMILIAR2 PACIENTE2)
+       20: (MOVERSE ENFERMERIAA HABITACION2)
+       21: (SALUDAR-AVISAR-LLAMADA-PACIENTE FAMILIAR2 PACIENTE2 HABITACION2)
+       22: (TRASCURRE-LLAMADA FAMILIAR2 PACIENTE2 HABITACION2)
+       23: (DESINFECCION-POST-LLAMADA HABITACION2 FAMILIAR2 PACIENTE2)
+       24: (MOVERSE HABITACION2 HABITACION1)
+       25: (MOVERSE-A-CARGA HABITACION1 ESTACION)
+       26: (PASAR-TIEMPO ESTACION)
+       27: (PASAR-TIEMPO ESTACION)
+       28: (MOVERSE-A-PREPARAR-LLAMADA ESTACION ENFERMERIAA FAMILIAR4 PACIENTE4)
+       29: (PEDIR-DESINFECCION ENFERMERIAA ENFERMERO1)
+       30: (PEDIR-ABRIR-HABITACION ENFERMERIAA HABITACION3 CELADOR2 FAMILIAR3 PACIENTE3)
+       31: (PEDIR-ABRIR-HABITACION ENFERMERIAA HABITACION4 CELADOR2 FAMILIAR4 PACIENTE4)
+       32: (MOVERSE ENFERMERIAA HABITACION3)
+       33: (SALUDAR-AVISAR-LLAMADA-PACIENTE FAMILIAR3 PACIENTE3 HABITACION3)
+       34: (TRASCURRE-LLAMADA FAMILIAR3 PACIENTE3 HABITACION3)
+       35: (DESINFECCION-POST-LLAMADA HABITACION3 FAMILIAR3 PACIENTE3)
+       36: (MOVERSE HABITACION3 HABITACION4)
+       37: (SALUDAR-AVISAR-LLAMADA-PACIENTE FAMILIAR4 PACIENTE4 HABITACION4)
+       38: (TRASCURRE-LLAMADA FAMILIAR4 PACIENTE4 HABITACION4)
+       39: (DESINFECCION-POST-LLAMADA HABITACION4 FAMILIAR4 PACIENTE4)
+       40: (MOVERSE HABITACION4 HABITACION1)
+       41: (MOVERSE-A-CARGA HABITACION1 ESTACION)
+       42: (PASAR-TIEMPO ESTACION)
+       43: (PASAR-TIEMPO ESTACION)
+       44: (PASAR-TIEMPO ESTACION)
+       45: (MOVERSE-A-PREPARAR-LLAMADA ESTACION ENFERMERIAB FAMILIAR5 PACIENTE1)
+       46: (PEDIR-DESINFECCION ENFERMERIAB ENFERMERO2)
+       47: (MOVERSE ENFERMERIAB HABITACION1)
+       48: (SALUDAR-AVISAR-LLAMADA-PACIENTE FAMILIAR5 PACIENTE1 HABITACION1)
+       49: (TRASCURRE-LLAMADA FAMILIAR5 PACIENTE1 HABITACION1)
+       50: (DESINFECCION-POST-LLAMADA HABITACION1 FAMILIAR5 PACIENTE1)
+       51: (MOVERSE-A-CARGA HABITACION1 ESTACION)
+       52: (PASAR-TIEMPO ESTACION)
+       53: (MOVERSE-A-PREPARAR-LLAMADA ESTACION ENFERMERIAB FAMILIAR8 PACIENTE6)
+       54: (PEDIR-DESINFECCION ENFERMERIAB ENFERMERO2)
+       55: (PEDIR-ABRIR-HABITACION ENFERMERIAB HABITACION6 CELADOR3 FAMILIAR8 PACIENTE6)
+       56: (MOVERSE ENFERMERIAB HABITACION6)
+       57: (SALUDAR-AVISAR-LLAMADA-PACIENTE FAMILIAR8 PACIENTE6 HABITACION6)
+       58: (TRASCURRE-LLAMADA FAMILIAR8 PACIENTE6 HABITACION6)
+       59: (DESINFECCION-POST-LLAMADA HABITACION6 FAMILIAR8 PACIENTE6)
+       60: (MOVERSE-A-CARGA HABITACION6 ESTACION)
+       61: (PASAR-TIEMPO ESTACION)
+       62: (PASAR-TIEMPO ESTACION)
+       63: (PASAR-TIEMPO ESTACION)
+       64: (MOVERSE-A-PREPARAR-LLAMADA ESTACION ENFERMERIAB FAMILIAR9 PACIENTE5)
+       65: (PEDIR-DESINFECCION ENFERMERIAB ENFERMERO2)
+       66: (PEDIR-ABRIR-HABITACION ENFERMERIAB HABITACION5 CELADOR3 FAMILIAR9 PACIENTE5)
+       67: (MOVERSE ENFERMERIAB HABITACION5)
+       68: (SALUDAR-AVISAR-LLAMADA-PACIENTE FAMILIAR9 PACIENTE5 HABITACION5)
+       69: (TRASCURRE-LLAMADA FAMILIAR9 PACIENTE5 HABITACION5)
+       70: (DESINFECCION-POST-LLAMADA HABITACION5 FAMILIAR9 PACIENTE5)
+       71: (MOVERSE-A-CARGA HABITACION5 ESTACION)
+     
+
+time spent:    0.00 seconds instantiating 860 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 200 facts and 202 actions
+               0.00 seconds creating final representation with 79 relevant facts, 2 relevant fluents
+               0.00 seconds computing LNF
+               0.00 seconds building connectivity graph
+               0.01 seconds searching, evaluating 166 states, to a max depth of 5
+               0.01 seconds total time
+
