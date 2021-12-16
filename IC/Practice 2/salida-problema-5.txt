@@ -40,11 +40,11 @@ step    0: (PASAR-TIEMPO ESTACION)
         6: (QUITAR-BLOQUEO HABITACION2 HABITACION1 CELADOR)
         7: (SALUDAR-AVISAR-LLAMADA-PACIENTE FAMILIAR3 PACIENTE2 HABITACION2)
         8: (CANCELADA-LLAMADA FAMILIAR3 PACIENTE2)
-        9: (DESINFECCION-POST-LLAMADA HABITACION2 FAMILIAR3 PACIENTE2)
+        9: (DESINFECCION-POST-LLAMADA HABITACION2 FAMILIAR3 PACIENTE2 CELADOR)
        10: (MOVERSE HABITACION2 HABITACION1)
        11: (SALUDAR-AVISAR-LLAMADA-PACIENTE FAMILIAR1 PACIENTE1 HABITACION1)
        12: (CANCELADA-LLAMADA FAMILIAR1 PACIENTE1)
-       13: (DESINFECCION-POST-LLAMADA HABITACION1 FAMILIAR1 PACIENTE1)
+       13: (DESINFECCION-POST-LLAMADA HABITACION1 FAMILIAR1 PACIENTE1 CELADOR)
        14: (MOVERSE-A-CARGA HABITACION1 ESTACION)
        15: (PASAR-TIEMPO ESTACION)
        16: (MOVERSE-A-PREPARAR-LLAMADA ESTACION ENFERMERIA FAMILIAR2 PACIENTE1)
@@ -54,11 +54,11 @@ step    0: (PASAR-TIEMPO ESTACION)
        20: (MOVERSE-A-CARGA HABITACION1 ESTACION)
      
 
-time spent:    0.01 seconds instantiating 72 easy, 0 hard action templates
+time spent:    0.00 seconds instantiating 72 easy, 0 hard action templates
                0.00 seconds reachability analysis, yielding 48 facts and 38 actions
                0.00 seconds creating final representation with 29 relevant facts, 2 relevant fluents
                0.00 seconds computing LNF
                0.00 seconds building connectivity graph
                0.00 seconds searching, evaluating 41 states, to a max depth of 5
-               0.01 seconds total time
+               0.00 seconds total time
 

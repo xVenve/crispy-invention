@@ -135,12 +135,13 @@
         )
     )
     (:action desinfeccion-post-llamada
-        :parameters (?l - habitacion ?f - familiar ?p - paciente)
+        :parameters (?l - habitacion ?f - familiar ?p - paciente ?p2 - personal)
         :precondition (and
             (en-r ?l)
             (en-p ?p ?l)
             (not (cita ?f ?p))
             (= (hora-actual)(hora-cita ?f ?p))
+            (en-p ?p2 ?l)
             (necesita-desinfeccion)
         )
         :effect (and

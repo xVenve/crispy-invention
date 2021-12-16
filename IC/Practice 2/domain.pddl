@@ -5,13 +5,13 @@
         habitacion sala - lugar
     )
     (:predicates
-        (en-p ?p - persona ?h - lugar) ; Una habitacion tiene una persona
+        (en-p ?p - persona ?h - lugar) ; Una habitacion tiene una persona, ya sea como paciente o personal asignado
         (en-r ?l - lugar) ; El robot esta en un lugar
         (desinfectado) ; El robot esta desinfectado
         (lugar-desinfeccion ?l - lugar) ; Lugar donde tiene lugar la desinfeccion
         (estacion-carga ?l - lugar) ; Lugar donde tiene lugar la carga
         (abierta ?h - lugar) ; Una habitacion esta abierta
-        (saludado-avisado-llamada ?p - paciente) ; Un paciente ha sido saludado
+        (saludado-avisado-llamada ?p - paciente) ; Un paciente ha sido saludado y avisado de la llamada
         (cita ?f - familiar ?p - paciente) ; Un paciente tiene una cita con un familiar
         (necesita-desinfeccion) ; Robot en habitacion COVID necesita desinfeccion
         (cancelada ?f - familiar ?p - paciente) ; Se ha cancelado una cita
@@ -133,12 +133,13 @@
         )
     )
     (:action desinfeccion-post-llamada
-        :parameters (?l - habitacion ?f - familiar ?p - paciente)
+        :parameters (?l - habitacion ?f - familiar ?p - paciente ?p2 - personal)
         :precondition (and
             (en-r ?l)
             (en-p ?p ?l)
             (not (cita ?f ?p))
             (= (hora-actual)(hora-cita ?f ?p))
+            (en-p ?p2 ?l)
             (necesita-desinfeccion)
         )
         :effect (and
