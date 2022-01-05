@@ -1,5 +1,5 @@
 (define (domain ROBOTCAFE)
-    (:requirements :strips :typing)
+    (:requirements :strips :typing :negative-preconditions)
     (:types
         persona lugar bebida
     )
