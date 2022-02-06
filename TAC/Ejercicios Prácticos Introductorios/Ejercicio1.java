@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.Random;
 
 // Cálculo del máximo comun divisor de dos números
 
@@ -27,19 +28,27 @@ public class Ejercicio1 {
         System.out.println("The greatest common divisor of two numbers is : " + alg1);
         System.out.println("The greatest common divisor of two numbers is : " + alg2);
 
-        new File("output.txt");
+        new File("outputEj1.txt");
 
         FileWriter write;
         try {
-            BigInteger max = new BigInteger("9223372036854775807");
-            BigInteger red = new BigInteger("100000000000");
-            write = new FileWriter("output.txt");
-            for (BigInteger i = BigInteger.valueOf(1); i.compareTo(max.divide(red)) == -1; i = i
-                    .multiply(BigInteger.valueOf(2))) {
+            //BigInteger max = new BigInteger("9223372036854775807");
+            write = new FileWriter("outputEj1.txt");
+            Random rand = new Random();
+            for (int i = 1; i < 64; i++) {
+                BigInteger x = new BigInteger(i, rand); // (2^i-1)
+                while (x.compareTo(BigInteger.valueOf((long) Math.pow(2, i - 1))) == -1) {
+                    x = new BigInteger(i, rand);
+                }
+                BigInteger y = new BigInteger(i, rand);
+                while (y.compareTo(BigInteger.valueOf((long) Math.pow(2, i - 1))) == -1) {
+                    y = new BigInteger(i, rand);
+                }
+
                 double algt1 = 0;
                 for (int j = 0; j < 10; j++) {
                     start = System.nanoTime();
-                    ejercicio1.algoritmo1(i, i);
+                    ejercicio1.algoritmo1(x, y);
                     end = System.nanoTime();
                     algt1 += (end - start);
                 }
@@ -47,12 +56,12 @@ public class Ejercicio1 {
                 double algt2 = 0;
                 for (int j = 0; j < 10; j++) {
                     start = System.nanoTime();
-                    ejercicio1.algoritmo2(i, i);
+                    ejercicio1.algoritmo2(x, y);
                     end = System.nanoTime();
                     algt2 += (end - start);
                 }
 
-                System.out.println(i + "; " + algt1 / 10 + "; " + algt2 / 10 + "; " + ejercicio1.algoritmo2(i, i));
+                System.out.println(i + "; " + algt1 / 10 + "; " + algt2 / 10 + "; " + ejercicio1.algoritmo2(x, y));
 
                 write.write(i + "; " + algt1 / 10 + "; " + algt2 / 10 + "\n");
             }
