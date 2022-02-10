@@ -81,8 +81,8 @@ public class Ejercicio2 {
     public boolean isPrime(BigInteger n) {
         boolean isPrime = true;
 
-        for (BigInteger i = BigInteger.valueOf(2); i.compareTo(n) == -1; i = i.add(BigInteger.valueOf(1))) {
-            if (n.mod(i).compareTo(BigInteger.valueOf(0)) == 0) {
+        for (BigInteger i = BigInteger.valueOf(2); i.compareTo(n) == -1; i = i.add(BigInteger.valueOf(1))) { //n 
+            if (n.mod(i).compareTo(BigInteger.valueOf(0)) == 0) { // 1
                 isPrime = false;
                 break;
             }
