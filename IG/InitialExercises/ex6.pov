@@ -15,6 +15,6 @@ sphere {
 }
 
 plane {
-    <0, 1, 0>, 0
-    pigment { color Blue }
+    <.4, 1, -.3>, 0
+    pigment { checker color Blue color White }
 }

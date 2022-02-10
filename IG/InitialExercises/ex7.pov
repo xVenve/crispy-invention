@@ -1,6 +1,6 @@
 #include "colors.inc"
 camera {
-    location <0, 1, 0>
+    location <-3, 1, -3>
     look_at <2, 1, 2>
 }
 
@@ -14,7 +14,12 @@ sphere {
     pigment { color Green }
 }
 
+box {
+    <2, 0, 2>, <4, 3, 4>
+    pigment { color Red }
+}
+
 plane {
-    <0, 1, 0>, 0
-    pigment { color Blue }
+    <1, 0, 1>, 8
+    pigment { checker color Blue color White }
 }
