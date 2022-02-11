@@ -74,8 +74,10 @@ public class Ejercicio1 {
         BigInteger number3 = number1.min(number2);
         BigInteger mcd = BigInteger.valueOf(1);
         number3.add(BigInteger.valueOf(1));
-        for (BigInteger i = BigInteger.valueOf(2); i.compareTo(number3) == -1; i = i.add(BigInteger.valueOf(1))) { //T(ini) + T(cond) + n_iter*(T(cond) + T(incr) + T(blq)) = 2 + 2 + n*(2 + 3 + 12n+7) = 12n^2 + 12n + 4  
-            while (number1.mod(i).equals(BigInteger.valueOf(0)) && number2.mod(i).equals(BigInteger.valueOf(0))) { //T(cond) + n_iter*(T(bloq)+T(cond)) = 7 + n*(6+7) = 12n+7 
+        for (BigInteger i = BigInteger.valueOf(2); i.compareTo(number3) == -1; i = i.add(BigInteger.valueOf(1))) { 
+            //T(ini) + T(cond) + n_iter*(T(cond) + T(incr) + T(blq)) = 2 + 2 + n*(2 + 3 + 12n+7) = 12n^2 + 12n + 4  
+            while (number1.mod(i).equals(BigInteger.valueOf(0)) && number2.mod(i).equals(BigInteger.valueOf(0))) { 
+                //T(cond) + n_iter*(T(bloq)+T(cond)) = 7 + n*(6+7) = 12n+7 
                 number1 = number1.divide(i); //2
                 number2 = number2.divide(i); //2
                 mcd = i.multiply(mcd); //2
