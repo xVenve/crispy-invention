@@ -1,15 +1,15 @@
 #include "colors.inc"
 camera {
-    location <0, 0, 0>
-    look_at <1, 1, 1>
+    location <-5, 1, -5>
+    look_at <2,1,2>
 }
 
 light_source {
-    <5,-5, 10>
+    <-1, -1, 0>
     color rgb <1, 1, 1>
 }
 
 sphere {
-    <10, 10, 10>, .8
+    <2, 1, 2>, 0.5
     pigment { color Green }
 }
