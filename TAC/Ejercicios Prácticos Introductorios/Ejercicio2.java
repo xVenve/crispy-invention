@@ -25,69 +25,38 @@ public class Ejercicio2 {
             write = new FileWriter("outputEj2.txt");
             Random rand = new Random();
             for (int i = 1; i < 64; i++) {
-                BigInteger x = new BigInteger(i, rand);
-                while (x.compareTo(BigInteger.valueOf((long) Math.pow(2, i - 1))) == -1) {
-                    x = new BigInteger(i, rand);
-                }
-                double algt = 0;
                 for (int j = 0; j < 10; j++) {
+                    BigInteger x = new BigInteger(i, rand);
+                    while (x.compareTo(BigInteger.valueOf((long) Math.pow(2, i - 1))) == -1) {
+                        x = new BigInteger(i, rand);
+                    }
                     start = System.nanoTime();
                     ejercicio2.isPrime(x);
                     end = System.nanoTime();
-                    algt += (end - start);
+
+                    System.out.println(i + "; " + (end - start) + "; " + x);
+                    write.write(x + "; " + (end - start) + "\n");
                 }
 
-                System.out.println(i + "; " + algt / 10 + "; " + x);
-
-                write.write(i + "; " + algt / 10 + "\n");
             }
 
             write.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        /* try {
-            // BigInteger max = new BigInteger("9223372036854775807");
-            write = new FileWriter("outputEj2.txt");
-
-            FileReader fr = new FileReader(new File("PRIMES1C.TXT"));
-            BufferedReader br = new BufferedReader(fr);
-            String line = br.readLine();
-            String[] elements = line.split(" ");
-            int r = 1000;
-            for (int i = 1; i < elements.length / r; i++) {
-                BigInteger x = new BigInteger(elements[i * r]);
-
-                double algt = 0;
-                for (int j = 0; j < 10; j++) {
-                    start = System.nanoTime();
-                    ejercicio2.isPrime(x);
-                    end = System.nanoTime();
-                    algt += (end - start);
-                }
-
-                System.out.println(i + "; " + algt / 10 + "; " + x);
-
-                write.write(i + "; " + algt / 10 + "\n");
-            }
-
-            write.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } */
     }
 
     public boolean isPrime(BigInteger n) {
-        boolean isPrime = true;
+        if (n.compareTo(BigInteger.valueOf(1)) < 1)
+            return false; // 1
 
-        for (BigInteger i = BigInteger.valueOf(2); i.compareTo(n) == -1; i = i.add(BigInteger.valueOf(1))) { //n 
-            if (n.mod(i).compareTo(BigInteger.valueOf(0)) == 0) { // 1
-                isPrime = false;
-                break;
-            }
+        for (BigInteger i = BigInteger.valueOf(2); i.compareTo(n.divide(BigInteger.valueOf(2))) < 1; i = i
+                .add(BigInteger.valueOf(1))) { // n
+            if (n.mod(i).compareTo(BigInteger.valueOf(0)) == 0)
+                return false; // 1
         }
-        return isPrime;
+
+        return true;
     }
 
 }
