@@ -10,7 +10,10 @@
             <.7,0>,
             <1.3,1.1>,
             <.8,3>
-            pigment { color White }
+            pigment { color White }  
+             finish {
+              reflection {0.1} ambient 0.26 diffuse 1
+          }
         }
         sor {
             4,
@@ -22,7 +25,10 @@
             rotate <180,0,0>
             translate <0,.5,0>
             scale .6
-        }
+            finish {
+              reflection {0.1} ambient 0.26 diffuse 1
+          }
+        }                  
     }
     sor {
         4,
@@ -33,6 +39,9 @@
         pigment { color White }
         scale .99
         translate <0,.1,0>
+         finish {
+              reflection {0.1} ambient 0.26 diffuse 1
+          }
     }
     translate <0,.4,0>
  }
@@ -102,6 +111,7 @@
         rotate <-17,0,15>    
     }
     translate <0,0,-1>
+    rotate <0,100,0>
 }
 
 #macro picoFlorero(height)
@@ -191,25 +201,28 @@
 }
 
 camera {
-    location <0,0,25>
+    location <0.2,5,14>
     look_at <0,0,0>
+    right x
 }
 
 light_source {
-    <10,10,10>
+    <0,30,-10>
     color White
 }
 
 object {
     bol
     scale 1
-    translate <-3,0,0>
+    translate <-0.5,0,8.35> 
+      
 }
 
 object {
     ambientador
     scale 1
-    translate <3,0,0>
+    translate <0.6,0,5.8>
+      
 }
 
 object {
@@ -221,8 +234,19 @@ object {
 object {
     esfera
     scale 1
-    translate <6,0,0>
-}
+    translate <2.5,-0.05,7.2>
+     interior{ior 1.2}
+}        
+
+ plane { <0,1, 0>, 0
+   texture{
+    pigment {
+      color White
+      }
+     finish{reflection{0.1}
+     }
+    }
+  }
 
 // Bol por roc
 // Cosa cristal por estrusion
