@@ -98,19 +98,19 @@
     }
     cylinder {
         <.75,0,1><.75,5,1>,.02
-        pigment { color Brown }
+        pigment { color rgb <0.85, 0.65, 0.13>}
         translate <.3,0.1,0>
         rotate <0,0,15>
     }
     cylinder {
         <.75,0,1><.75,5,1>,.02
-        pigment { color Green }
+        pigment { color rgb <0.85, 0.65, 0.13>}
         translate <.3,0.1,-.3>
         rotate <15,0,15>    
     }
     cylinder {
         <.75,0,1><.75,5,1>,.02
-        pigment { color DarkGreen }
+        pigment { color rgb <0.85, 0.65, 0.13>}
         translate <.3,-.3,.3>
         rotate <-17,0,15>    
     }
@@ -185,6 +185,7 @@
         picoFlorero(16)
         rotate <0,300,0>
     }
+    rotate<0,60,0>
 }
 
 #declare RandomSeed = seed(16);
@@ -212,8 +213,9 @@ camera {
     right x
 }
 
+
 light_source {
-    <2,7,-1>
+    <0.8,10,-5.6>
     color White
 }
 
@@ -231,8 +233,8 @@ object {
 
 object {
     florero
-    scale .3
-    translate <2.3,0,3>
+    scale <.38,0.35,0.38>
+    translate <2.4,0,3>
     
 
 }
@@ -251,8 +253,16 @@ object {
       }
      finish{reflection{0.1}
      }
-    }
-  }
+    }           
+   }
+   
+ plane { <-0.2,0, 1>, -8
+   texture{
+    pigment {
+      color Black
+      }
+     }
+    }  
 
 // Bol por roc
 // Cosa cristal por estrusion
