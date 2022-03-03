@@ -12,8 +12,9 @@
             <.8,3>
             pigment { color White }  
              finish {
-              reflection {0.1} ambient 0.26 diffuse 1
+              reflection {0.1} ambient 0.26 diffuse 1  
           }
+          scale <0.9,0.8,0.8>
         }
         sor {
             4,
@@ -28,6 +29,7 @@
             finish {
               reflection {0.1} ambient 0.26 diffuse 1
           }
+           scale <0.76,0.8,0.76>
         }                  
     }
     sor {
@@ -41,9 +43,11 @@
         translate <0,.1,0>
          finish {
               reflection {0.1} ambient 0.26 diffuse 1
-          }
+          } 
+              scale <0.9,0.9,0.8>
     }
-    translate <0,.4,0>
+    translate <0,.4,0> 
+
  }
 
 #declare ambientador = union {
@@ -111,7 +115,7 @@
         rotate <-17,0,15>    
     }
     translate <0,0,-1>
-    rotate <0,100,0>
+    rotate <0,105,0>
 }
 
 #macro picoFlorero(height)
@@ -122,7 +126,8 @@
         height,
         5,
         <-2,-3>, <-2,3>, <2,.8>, <2,-.8>, <-2,-3>
-        texture {Glass3}
+        texture {NBglass}
+        finish { diffuse 2 } 
         rotate <0,-90,0>
         translate <0,0,7.2>
         scale .48
@@ -136,7 +141,8 @@
     6.75,
     7,
     <0,0>, <4,0>, <6,2*sqrt(3)>, <4,4*sqrt(3)>, <0,4*sqrt(3)>, <-2,2*sqrt(3)>, <0,0>
-    texture {Glass3}
+    texture {NBglass}
+    finish { diffuse 2 }  
     translate <-2,0,-2*sqrt(3)>
 }
 
@@ -201,40 +207,40 @@
 }
 
 camera {
-    location <0.2,5,14>
+    location <0.2,4.6,14>
     look_at <0,0,0>
     right x
 }
 
 light_source {
-    <0,30,-10>
+    <2,7,-1>
     color White
 }
 
 object {
     bol
-    scale 1
-    translate <-0.5,0,8.35> 
+    translate <-0.9,0,8> 
       
 }
 
 object {
-    ambientador
-    scale 1
-    translate <0.6,0,5.8>
+    ambientador 
+    translate <0.4,0,5.8>
       
 }
 
 object {
     florero
     scale .3
-    translate <0,0,0>
+    translate <2.3,0,3>
+    
+
 }
 
 object {
     esfera
-    scale 1
-    translate <2.5,-0.05,7.2>
+    scale 1.1
+    translate <2.55,-0.05,7.2>
      interior{ior 1.2}
 }        
 
