@@ -155,6 +155,35 @@
             hexagono
             scale <.72,1.1,.72>
         }
+        object {
+        hexagono
+        scale <.72,.16,.72>
+        translate <0,-.15,0>
+        }
+        object {
+            picoFlorero(17.8)
+            rotate <0,0,0>
+        }
+        object {
+            picoFlorero(16)
+            rotate <0,60,0>
+        }
+        object {
+            picoFlorero(18.5)
+            rotate <0,120,0>
+        }
+        object {
+            picoFlorero(17.8)
+            rotate <0,180,0>
+        }
+        object {
+            picoFlorero(18.5)
+            rotate <0,240,0>
+        }
+        object {
+            picoFlorero(16)
+            rotate <0,300,0>
+        }
     }
     object {
         hexagono
