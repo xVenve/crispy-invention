@@ -28,9 +28,9 @@ global_settings {  assumed_gamma 1.0 }
 //--------------------------------------------------------------------------
 // camera ------------------------------------------------------------------
 camera {//ultra_wide_angle angle 75          // front view
-                            location  <0.0 , 0.2 ,-1.6>
+                            location  <0.2 , 0.2 ,-1.6>
                             right     x*image_width/image_height
-                            look_at   <0.0 , 0.5 , 0.0>
+                            look_at   <0.0 , 0.5 , 0>
                             }
 // sun ---------------------------------------------------------------------
 light_source{<1500,2500,-2500> color <1,1,1>}
@@ -145,8 +145,37 @@ finish {
 #declare b=1/(2*sqrt(3));
 #declare c=0.5;
 #declare h=sqrt(2/3);    
-#declare R=sqrt(6)/4;     
-#declare d=1-R;                 
+#declare R=sqrt(6)/4;      
+#declare d=1-R;
+
+//Pigments
+#declare Plaza_Texture = 
+  texture {
+   pigment {
+     granite
+     turbulence 3
+     color_map {
+       [0.000 color rgb <0.5, 0.5, 0.2>]
+       [0.25 color rgb <0.7, 1, 0.2>]
+       [0.5 color rgb <1, 0.4, 0.2>]
+       [0.75 color rgb <.5, 0.9, 0.2>]
+       [1 color rgb <0.3, 0.9, 0.2>]
+     }
+     scale 0.035
+   }
+   finish{specular .25 }
+           normal{
+             average normal_map{
+                 [0.0 bumps 150 scale 30]
+                 [0.2 dents 50 scale 12.5 turbulence .3]
+                 [0.6 bump_map{ gif "GBM4.gif" bump_size 2} rotate x*90
+ rotate y*45 scale 30 ]
+                 [1.0 wrinkles 25 scale 5 scallop_wave rotate z*30]
+                 }//end of normal map
+                 rotate z*15 turbulence 10
+               }//end of normal dec
+ }
+                       
  
  
 // Vertexes of Tetraheadron
@@ -175,7 +204,77 @@ finish {
    bounded_by {sphere {0, 1.2585}}
   }
                             
-//-----------------------Macros--------------------------------------  
+//-----------------------Macros-------------------------------------- 
+#declare stone = box {<0,0,0>,<2,1,5> texture {T_Grnt24}}
+#macro Fountain(itlevel)
+  union{ 
+    #local num=1;
+    #local s=.05;
+    #local s2=.3;
+    #while (num < itlevel)
+      union{  
+        #local t1=24;
+        #local t2=0;
+        #while (t2 < t1)
+          object {stone translate<3,(num-1)*s2,0> scale <1-s*num,1,1-s*num> rotate<0,360-(t2*360/t1),0>}
+          #local t2=t2+1;
+        #end // while
+      }              
+    #local num = num + 1;
+    #end      
+  }   
+#end
+
+#declare drop = 
+  merge{
+    sphere{0,1.5 scale<1,.65,1>} 
+    cone{y*.4,1.37,y*3.1,0}
+    translate y*-.6375 
+    scale<.425,.5259,.425>   
+    rotate<0,0,60>    
+    texture { NBglass }
+    finish { diffuse 1 }
+  }       
+
+#macro WaterF(itlevel)
+  union{ 
+    #local num=1;
+    #local s=.9;
+    #local s2=.4;
+    #while (num < itlevel)
+      union{  
+        #local t1=5;
+        #local t2=0;
+        #while (t2 < t1)
+          object {drop translate<3,(num-1)*s2,0> scale <1/num*s,1,1/num*s> rotate<0,360-(t2*360/t1),0>}
+          #local t2=t2+1;
+        #end // while
+      }              
+      #local num = num + 1;
+    #end      
+  }   
+#end    
+#macro sierpinski(s, base_center, recursion_depth)
+    #if (recursion_depth > 0)
+        union {       
+            sierpinski(s / 2, base_center + s/2*y,      recursion_depth - 1)
+            sierpinski(s / 2, base_center - s/2*(x+z),  recursion_depth - 1)
+            sierpinski(s / 2, base_center - s/2*(x-z),  recursion_depth - 1)
+            sierpinski(s / 2, base_center - s/2*(-x+z), recursion_depth - 1)
+            sierpinski(s / 2, base_center - s/2*(-x-z), recursion_depth - 1)
+        }
+    #else
+        difference{
+            box { <1,1,1>, <-1,0,-1> }
+            plane{ x-y,  -sqrt(2)/2}
+            plane{ -x-y, -sqrt(2)/2}
+            plane{ z-y,  -sqrt(2)/2}
+            plane{ -z-y, -sqrt(2)/2}
+            scale s*1.0
+            translate base_center            
+        }    
+    #end
+#end   
 #macro Bird (F)
 
 #declare Flap = sin(F*2*pi);
@@ -297,6 +396,8 @@ object{ Dodecahedron bounded_by{box{<-1.5,-1.5,-1.5>,<1.5,1.5,1.5>}}
 #end // Ende des Macros       
 
 
+#declare corteza=texture{pigment{crackle turbulence 0.4 lambda 3.2 color_map{[0 color rgb <1,0.6,0.31>*.3][0.1 color rgb <1,0.6,0.31>*.4][0.6 color rgb <1,0.6,0.31>*.8] [1 color rgb <1,0.6,0.31>*1.2]}}       
+finish{ambient 0.1} scale <0.2,0.7,0.2>*1}    
 #macro WooblyTree(woodBaseX,woodBaseY,woodBaseZ,woodEnd,rad,it) 
 union{
     object{
@@ -307,24 +408,33 @@ union{
      }         
      cylinder {
         <woodBaseX,woodBaseY,woodBaseZ>,<woodBaseX,woodEnd,woodBaseZ>,rad
-        texture {DMFDarkOak }
+        texture { corteza scale .03 }
       }
-    }no_shadow
+    }
 #end
 
          
 //-------------------- Scene --------------------------------------------------------       
-// sea ---------------------------------------------------------------------
-plane{<0,1,0>, 0 
-       pigment{ color rgb<0.6,1,0>}
-    normal { agate 1.0      // bump depth
-         agate_turb 2.0 // default 1 !!!
-         scale 0.5 
-    }}          
+// ---------------------------------------------------------------------    
+      
+     
+//-----------------------------------
+
+union{
+    object{Fountain(20) scale .1 rotate<0,0,0>} 
+    object{WaterF(20) scale .12 rotate<180,20,0> translate<0,1.2,0>} 
+    translate<-.15,0,1>
+    scale 0.3
+}
+
+plane{<0,1,0>,0
+        texture{Plaza_Texture} 
+    }
+            
 
 #object{                         
     WooblyTree(0,0,0,0.7,0.08,3)
-    translate<0.25,0,1>
+    translate<0.2,0,1>
     
 }  
 #object{                         
@@ -332,7 +442,8 @@ plane{<0,1,0>, 0
     
 }  
 #object{
-    WooblyTree(0.4,0,0.5,0.7,0.08,3)       
+    WooblyTree(0.4,0,0.5,0.7,0.08,3) 
+ 
 }          
 
 #object{                       
@@ -340,7 +451,6 @@ plane{<0,1,0>, 0
     rotate<0,90,0> 
     translate<-0.5,0,1>
 } 
-
 #object{                       
     WooblyTree(0,0,0,0.7,0.08,3) 
     rotate<0,90,0> 
@@ -352,6 +462,14 @@ plane{<0,1,0>, 0
     rotate<0,90,0> 
     translate<-0.7,0,0>
 } 
+
+object {
+    sierpinski(6, <0.8, 0, 0>, 5)
+    scale <1, 1.3, 1>     
+    rotate<0,-5,0>
+    translate<-1.9,0, 10>  
+    pigment {image_map{png "Arenisca.png"}}
+}                          
 
 
    
