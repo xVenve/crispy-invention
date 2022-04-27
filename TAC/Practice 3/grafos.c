@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX_NODOS 10000
+#define MAX_NODOS 20000
 
 #define initial 1
 #define waiting 2
@@ -206,21 +206,21 @@ void prueba_empirico(int nodos) {
     clock_t end;
     double cpu_time_used;
 
-    for (int i = nodos; i < MAX_NODOS; i += 10) {
-        arcos = i * (i - 1) / 4;
-        crear_grafo(i, arcos);
+    arcos = MAX_NODOS * (MAX_NODOS - 1) / 4;
+    crear_grafo(MAX_NODOS, arcos);
 
+    for (int i = nodos; i < MAX_NODOS; i += 10) {
         // Medir tiempo de contar clusteres
         start = clock();
         cluster1 = contar_clusters(i);
         end = clock();
 
         // Guardar info
+        arcos = i * (i - 1) / 4;
         cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
         printf("Nodos\t %4d\t Arcos\t %4d\t Clusters\t %3d\t Tiempo \t %3f\n", i, arcos, cluster1, cpu_time_used);
         fprintf(fptr, "Nodos\t %4d\t Arcos\t %4d\t Clusters\t %3d\t Tiempo \t %3f\n", i, arcos, cluster1,
                 cpu_time_used);
-        imprimir_grafo(i);
     }
 }
 
@@ -238,7 +238,7 @@ int warshall(int nodos) {
             for (j = 0; j <= nodos; j++)
                 matriz[i][j] = maximo(matriz[i][j], matriz[i][k] && matriz[k][j]);
 
-    int n_cluster = 0;
+    int n_cluster = 1;
     clusters[0] = n_cluster;
     for (i = 1; i <= nodos; i++)
         for (j = 0; j <= i; j++)
@@ -274,7 +274,6 @@ void prueba_empirico_w(int nodos) {
         printf("Nodos\t %4d\t Arcos\t %4d\t Clusters\t %3d\t Tiempo \t %3f\n", i, arcos, cluster1, cpu_time_used);
         fprintf(fptr, "Nodos\t %4d\t Arcos\t %4d\t Clusters\t %3d\t Tiempo \t %3f\n", i, arcos, cluster1,
                 cpu_time_used);
-        imprimir_grafo(i);
     }
 }
 
@@ -360,21 +359,21 @@ void prueba_empirico_bfs(int nodos) {
     clock_t end;
     double cpu_time_used;
 
-    for (int i = nodos; i < MAX_NODOS; i += 10) {
-        arcos = i * (i - 1) / 4;
-        crear_grafo(i, arcos);
+    arcos = MAX_NODOS * (MAX_NODOS - 1) / 4;
+    crear_grafo(MAX_NODOS, arcos);
 
+    for (int i = nodos; i < MAX_NODOS; i += 10) {
         // Medir tiempo de contar clusteres
         start = clock();
         cluster1 = BF_Traversal(i);
         end = clock();
 
         // Guardar info
+        arcos = i * (i - 1) / 4;
         cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
         printf("Nodos\t %4d\t Arcos\t %4d\t Clusters\t %3d\t Tiempo \t %3f\n", i, arcos, cluster1, cpu_time_used);
         fprintf(fptr, "Nodos\t %4d\t Arcos\t %4d\t Clusters\t %3d\t Tiempo \t %3f\n", i, arcos, cluster1,
                 cpu_time_used);
-        imprimir_grafo(i);
     }
 }
 
@@ -391,8 +390,8 @@ int main(void) {
     crear_matriz();
     // analizar_grafo(512);
     // prueba_empirico(0);
-    // prueba_empirico_w(0);
-    prueba_empirico_bfs(0);
+    // prueba_empirico_bfs(0);
+    prueba_empirico_w(0);
 
     fclose(fptr);
     mi_malloc(-1);
