@@ -390,10 +390,13 @@ int main(void) {
     crear_matriz();
     // analizar_grafo(512);
     // prueba_empirico(0);
-    // prueba_empirico_bfs(0);
-    prueba_empirico_w(0);
+    prueba_empirico_bfs(0);
+    // prueba_empirico_w(0);
 
     fclose(fptr);
-    mi_malloc(-1);
-    system("PAUSE");
+    for (int i = 0; i < MAX_NODOS; i++) {
+        free(matriz[i]);
+    }
+
+    exit(0);
 }
