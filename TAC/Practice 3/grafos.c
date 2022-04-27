@@ -1,8 +1,15 @@
+//%%writefile grafosbfs.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
 #define MAX_NODOS 2000
+
+#define initial 1
+#define waiting 2
+#define visited 3
+int state[MAX_NODOS]; /*can be initial, waiting or visited*/
+int queue[MAX_NODOS], front = -1, rear = -1;
 
 int *matriz[MAX_NODOS];
 int clusters[MAX_NODOS];
@@ -186,8 +193,202 @@ void analizar_grafo(int **matriz, int nodos) {
 
   end = clock();
   cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
-  printf("Tiempo %3f segs \n", cpu_time_used);
-  fprintf(fptr, "Tiempo %3f segs \n", cpu_time_used);
+  printf("Tiempo %3f \n", cpu_time_used);
+  fprintf(fptr, "Tiempo %3f \n", cpu_time_used);
+}
+
+void prueba_empirico(int **matriz, int nodos) {
+  int arcos;
+  int clust1;
+
+  clock_t start;
+  clock_t end;
+  double cpu_time_used;
+
+  for (int i = nodos; i < MAX_NODOS; i++) {
+    arcos = i * (i - 1) / 2;
+    crear_grafo(matriz, i, arcos);
+
+    // Limpieza del grafo para tener el peor caso
+    do {
+      arcos = borrar_arco_aleatorio(matriz, i, arcos);
+    } while (arcos != i * (i - 1) / 4);
+
+    // Medir tiempo de contar clusteres
+    start = clock();
+    clust1 = contar_clusters(matriz, i);
+    end = clock();
+
+    // Guardar info
+    cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+    printf("Nodos\t %4d\t Arcos\t %4d\t Clusters\t %3d\t Tiempo \t %3f\n", i, arcos, clust1, cpu_time_used);
+    fprintf(fptr, "Nodos\t %4d\t Arcos\t %4d\t Clusters\t %3d\t Tiempo \t %3f\n", i, arcos, clust1, cpu_time_used);
+    imprimir_grafo(matriz, i);
+  }
+}
+
+int maximo(int a, int b) {
+  if (a > b)
+    return (a);
+  else
+    return (b);
+}
+
+int warshall(int **matriz, int nodos) {
+  int i, j, k;
+  for (k = 0; k <= nodos; k++)
+    for (i = 0; i <= nodos; i++)
+      for (j = 0; j <= nodos; j++)
+        matriz[i][j] = maximo(matriz[i][j], matriz[i][k] && matriz[k][j]);
+
+  int n_cluster = 0;
+  clusters[0] = n_cluster;
+  for (i = 1; i <= nodos; i++)
+    for (j = 0; j <= i; j++)
+      if (matriz[i][j] == 1) {
+        clusters[j] = clusters[i];
+        break;
+      } else if (i == j) {
+        n_cluster++;
+        clusters[j] = n_cluster;
+      }
+  return n_cluster;
+}
+
+void prueba_empirico_w(int **matriz, int nodos) {
+  int arcos;
+  int clust1;
+
+  clock_t start;
+  clock_t end;
+  double cpu_time_used;
+
+  for (int i = nodos; i < MAX_NODOS; i++) {
+    arcos = i * (i - 1) / 2;
+    crear_grafo(matriz, i, arcos);
+
+    // Limpieza del grafo para tener el peor caso
+    do {
+      arcos = borrar_arco_aleatorio(matriz, i, arcos);
+    } while (arcos != i * (i - 1) / 4);
+    fprintf(fptr, "\n");
+    imprimir_grafo(matriz, i);
+
+    // Medir tiempo de contar clusteres
+    start = clock();
+    clust1 = warshall(matriz, i);
+    end = clock();
+
+    // Guardar info
+    cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+    printf("Nodos\t %4d\t Arcos\t %4d\t Clusters\t %3d\t Tiempo \t %3f\n", i, arcos, clust1, cpu_time_used);
+    fprintf(fptr, "Nodos\t %4d\t Arcos\t %4d\t Clusters\t %3d\t Tiempo \t %3f\n", i, arcos, clust1, cpu_time_used);
+    imprimir_grafo(matriz, i);
+  }
+}
+
+void insert_queue(int vertex) {
+  if (rear == MAX_NODOS - 1)
+    printf("Queue Overflow\n");
+  else {
+    if (front == -1) /*If queue is initially empty */
+      front = 0;
+    rear = rear + 1;
+    queue[rear] = vertex;
+  }
+} /*End of insert_queue()*/
+
+int isEmpty_queue() {
+  if (front == -1 || front > rear)
+    return 1;
+  else
+    return 0;
+} /*End of isEmpty_queue()*/
+
+int delete_queue() {
+  int del_item;
+  if (front == -1 || front > rear) {
+    printf("\nQueue Underflow\n");
+    exit(1);
+  }
+
+  del_item = queue[front];
+  front = front + 1;
+  return del_item;
+
+} /*End of delete_queue() */
+
+void BFS(int v, int component_Num, int nodos) {
+  int i;
+
+  insert_queue(v);
+  state[v] = waiting;
+
+  while (!isEmpty_queue()) {
+    v = delete_queue();
+    state[v] = visited;
+    clusters[v] = component_Num;
+
+    for (i = 0; i < nodos; i++) {
+      /* Check for adjacent unvisited vertices */
+      if (matriz[v][i] == 1 && state[i] == initial) {
+        insert_queue(i);
+        state[i] = waiting;
+      }
+    }
+  }
+} /*End of BFS()*/
+
+int BF_Traversal(int nodos) {
+  int v, components = 0;
+  front = -1;
+  rear = -1;
+
+  for (v = 0; v < nodos; v++) {
+    state[v] = initial;
+    queue[v] = 0;
+  }
+
+  components++;
+  BFS(0, components, nodos); /*start BFS from vertex 0*/
+
+  for (v = 0; v < nodos; v++) {
+    if (state[v] == initial) {
+      components++;
+      BFS(v, components, nodos);
+    }
+  }
+  return components;
+} /*End of BF_Traversal()*/
+
+void prueba_empirico_bfs(int **matriz, int nodos) {
+  int arcos;
+  int clust1;
+
+  clock_t start;
+  clock_t end;
+  double cpu_time_used;
+
+  for (int i = nodos; i < MAX_NODOS; i++) {
+    arcos = i * (i - 1) / 2;
+    crear_grafo(matriz, i, arcos);
+
+    // Limpieza del grafo para tener el peor caso
+    do {
+      arcos = borrar_arco_aleatorio(matriz, i, arcos);
+    } while (arcos != i * (i - 1) / 4);
+
+    // Medir tiempo de contar clusteres
+    start = clock();
+    clust1 = BF_Traversal(i);
+    end = clock();
+
+    // Guardar info
+    cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+    printf("Nodos\t %4d\t Arcos\t %4d\t Clusters\t %3d\t Tiempo \t %3f\n", i, arcos, clust1, cpu_time_used);
+    fprintf(fptr, "Nodos\t %4d\t Arcos\t %4d\t Clusters\t %3d\t Tiempo \t %3f\n", i, arcos, clust1, cpu_time_used);
+    imprimir_grafo(matriz, i);
+  }
 }
 
 int main(void) {
@@ -201,30 +402,10 @@ int main(void) {
   }
 
   crear_matriz(matriz);
-  /* int nodos = 4;
-  int arcos = nodos * (nodos - 1) / 2;
-  crear_grafo(matriz, nodos, arcos);
-  for (int i = 0; i < nodos * (nodos - 1) / 2; i++) {
-    arcos = borrar_arco_aleatorio(matriz, nodos, arcos);
-  }
-
-  clock_t startTT;
-  clock_t endTT;
-  double cpu_time_usedTT;
-  startTT = clock();
-  int cl = contar_clusters(matriz, nodos);
-  endTT = clock();
-  cpu_time_usedTT = ((double)(endTT - startTT)) / CLOCKS_PER_SEC;
-  printf("Tiempo %3f \n", cpu_time_usedTT);
-  printf("%d\n", cl); */
-
-  // analizar_grafo(matriz, 16);
-  // analizar_grafo(matriz, 32);
-  // analizar_grafo(matriz, 64);
-  // analizar_grafo(matriz, 128);
-  // analizar_grafo(matriz, 256);
-  analizar_grafo(matriz, 512);
-  // analizar_grafo(matriz, 1024);
+  // analizar_grafo(matriz, 512);
+  // prueba_empirico(matriz, 1);
+  // prueba_empirico_w(matriz, 1);
+  prueba_empirico_bfs(matriz, 1);
 
   fclose(fptr);
   mi_malloc(-1);
