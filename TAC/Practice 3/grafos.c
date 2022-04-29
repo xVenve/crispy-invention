@@ -395,7 +395,7 @@ int main(void) {
     }
 
     crear_matriz();
-    /*
+    /* Datos para diferencias finitas
     crear_grafo(MAX_NODOS, MAX_NODOS * (MAX_NODOS - 1) / 2);
     for (int i = 1; i < 101; i++) {
         for (int j = 1; j <= i; j++) {
