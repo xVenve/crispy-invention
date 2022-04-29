@@ -149,7 +149,8 @@ void analizar_grafo(int nodos) {
         printf("Arcos\t %4d\t Tiempo\t %3f \n", arcos, cpu_time_usedT);
         if (cluster1 > cluster0) { // imprime solo si aparece nuevo cluster
             cpu_time_usedT = ((double) (endT - startT)) / CLOCKS_PER_SEC;
-            printf("Nodos\t %4d\t Arcos\t %4d\t Clusters\t %3d\t Tiempo \t %3f\n", nodos, arcos, cluster1, cpu_time_usedT);
+            printf("Nodos\t %4d\t Arcos\t %4d\t Clusters\t %3d\t Tiempo \t %3f\n", nodos, arcos, cluster1,
+                   cpu_time_usedT);
             cluster0 = cluster1;
         } // elimina un arco al azar:
         arcos = borrar_arco_aleatorio(nodos, arcos);
@@ -201,15 +202,15 @@ int comprueba_conflictos(int nodos) { // T(n)=1+3+(n-1)(4+3+ p(3+1+1+2))
     int i;
     int j;
     long int cf = 0L;
-	cont += 4;
+    cont += 4;
     for (i = 0; i < nodos - 1; i++) {
-		cont += 7;
+        cont += 7;
         for (j = i + 1; j < nodos; j++) {
-			cont += 4;
+            cont += 4;
             if (matriz[i][j] == 1) {
-				cont += 1;
+                cont += 1;
                 if (asignaciones[i] == asignaciones[j]) {
-					cont += 2;
+                    cont += 2;
                     cf++;
                 }
             }
@@ -235,9 +236,9 @@ void asigna_colores(int ind, int nodos, int k) { // T(n)= 1+ max(1+LLAMADA_CONFL
         }
         cont += 4;
     } else {
-		cont += 2;
+        cont += 2;
         for (j = 0; j < k; j++) {
-			cont += 6;
+            cont += 6;
             asignaciones[ind] = j;
             asigna_colores(ind + 1, nodos, k);
 
@@ -300,6 +301,7 @@ int main(void) {
     srand(3);
 
     crear_matriz();
+    /*
     for (int i = 1; i < 11; i++) {
       for (int j = 1; j <= i; j++) {
         clusters[i] = -1;
@@ -309,7 +311,8 @@ int main(void) {
       asigna_colores(0, i, 3);
       printf("%d\n", cont);
     }
-    // explora_k_colorabilidad(3, 4.0); // exploramos con k=3 y 4 arcos por nodo
+    */
+    explora_k_colorabilidad(3, 4.0); // exploramos con k=3 y 4 arcos por nodo
 
     for (int i = 0; i < MAX_NODOS; i++) {
         free(matriz[i]);
