@@ -10,6 +10,7 @@
 #define visited 3
 int state[MAX_NODOS]; /*can be initial, waiting or visited*/
 int queue[MAX_NODOS], front = -1, rear = -1;
+int cont = 0;
 
 int *matriz[MAX_NODOS];
 int clusters[MAX_NODOS];
@@ -116,9 +117,12 @@ void imprimir_grafo(int nodos) {
 /* para propagar recursivamente una marca (número de cluster) a los nodos adyacentes del nodo n */
 void propagar_marcaR(int nodos, int n, int n_cluster) { // T(n) = 1 + 2 + n(3 + 3 + 1 + T(n-1))
     int j;
-
+    cont += 2;
     for (j = 0; j < nodos; j++) { // T(n) = 2 + n*(3+3+1+1+T(n-1)); T(n) = 2 + n*(8 + T(n-1))
+        cont += 3;
+        cont += 3;
         if (n != j && matriz[n][j] != 0 && clusters[j] == -1) {
+            cont += 2;
             clusters[j] = n_cluster;
             propagar_marcaR(nodos, j, n_cluster);
         }
@@ -129,15 +133,18 @@ void propagar_marcaR(int nodos, int n, int n_cluster) { // T(n) = 1 + 2 + n(3 + 
 int contar_clusters(int nodos) { // T(n)=3 + 2 + n(3+ 1) + 1 + 2 + n(3 + 1 + 2 + LLAMADA + 1) + 1
     int i;
     int n_cluster;
-
+    cont += 2;
     for (i = 0; i < nodos; i++) { // T(n) = 2 + n*(1+2+1) ; T(n) = 4n + 2
-        clusters[i] = -1;           // todos los nodos sin marcar para empezar
+        cont += 4;
+        clusters[i] = -1; // todos los nodos sin marcar para empezar
     }
     n_cluster = 0;
-
+    cont += 3;
     for (i = 0; i < nodos; i++) { // T(n) = 2 + n*(1+2+1+1+1+__+2) = 2 + n*(8+__)
-        if (clusters[i] == -1) {    // nodo i no está marcado ==> es nodo de grafo inconexo
-            clusters[i] = n_cluster;  // nuevo cluster y propagar a sus adyacentes
+        cont += 4;
+        if (clusters[i] == -1) {   // nodo i no está marcado ==> es nodo de grafo inconexo
+            cont += 4;
+            clusters[i] = n_cluster; // nuevo cluster y propagar a sus adyacentes
             propagar_marcaR(nodos, i, n_cluster);
             n_cluster++;
         }
@@ -388,6 +395,18 @@ int main(void) {
     }
 
     crear_matriz();
+    /*
+    crear_grafo(MAX_NODOS, MAX_NODOS * (MAX_NODOS - 1) / 2);
+    for (int i = 1; i < 101; i++) {
+        for (int j = 1; j <= i; j++) {
+            clusters[i] = -1;
+        }
+        cont = 0;
+        //propagar_marcaR(i, 0, 1);
+        contar_clusters(i);
+        printf("%d\n", cont);
+    }
+    */
     // analizar_grafo(512);
     // prueba_empirico(0);
     prueba_empirico_bfs(0);
