@@ -298,6 +298,38 @@ void asigna_colores(int ind, int nodos, int k) { // T(n)= 1+ max(1+LLAMADA_CONFL
     }
 }
 
+/**
+ * It tries to color a graph with k colors, and it stops when it finds the first solution
+ * 
+ * @param ind the index of the node we're currently coloring
+ * @param nodos number of nodes
+ * @param k number of colors
+ * 
+ * @return The number of times the function is called.
+ */
+void asigna_colores_backtracking(int ind, int nodos, int k) {
+    int j;
+    int cf;
+    cont += 1;
+    if (ind >= nodos) {
+        cf = comprueba_conflictos(nodos);
+        if (cf == 0) {
+            sin_conflictos++;
+        } else {
+            con_conflictos++;
+        }
+        cont += 4;
+    } else {
+        cont += 2;
+        for (j = 0; j < k; j++) {
+            cont += 7;
+            asignaciones[ind] = j;
+            asigna_colores_backtracking(ind + 1, nodos, k);
+            if (sin_conflictos >= 1)
+                return;    // Ha ocurrido la primera asignacion completa sin conflicto, acabará de volver de la condición base de la recursión.
+        }
+    }
+}
 
 /**
  * It creates a graph with a given number of nodes and a given number of arcs per node
@@ -399,6 +431,45 @@ void prueba_densidad(int k) {
     }
 }
 
+
+/**
+ * It generates a graph with 100 nodes and a given number of arcs per node, then it tries to color the
+ * graph with k colors using backtracking to get the first solution
+ * 
+ * @param k number of colors
+ * @param arcospornodo The number of edges per node.
+ */
+void explora_k_colorabilidad_bt(int k, double arcospornodo) {
+    int nodos;
+    double proporcion;
+
+    clock_t start;
+    clock_t end;
+    double cpu_time_used;
+
+    construye_grafo(100, arcospornodo);
+
+    for (nodos = 1; nodos < 100; nodos++) {
+        sin_conflictos = 0L;
+        con_conflictos = 0L;
+        cont = 0;
+
+        start = clock();
+        asigna_colores_backtracking(0, nodos, k);
+        end = clock();
+
+        // imprimir_grafo (nodos) ;	// si se genera primera solucion
+
+        proporcion = (double) sin_conflictos;
+        proporcion /= (double) con_conflictos;
+        cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+
+        printf("Nodos %3d, Soluciones %llu, Fallidas %llu, Total %llu, Proporcion %lf, Tiempo %3f, Testigos %llu \n",
+               nodos,
+               sin_conflictos, con_conflictos, sin_conflictos + con_conflictos, proporcion, cpu_time_used, cont);
+    }
+}
+
 int main(void) {
     srand(3);
 
@@ -414,8 +485,10 @@ int main(void) {
       printf("%d\n", cont);
     }
     */
-    explora_k_colorabilidad(3, 0); // exploramos con k=3 y 0 arcos por nodo
+    //explora_k_colorabilidad(3, 0); // exploramos con k=3 y 0 arcos por nodo
     // prueba_densidad(3);
+    explora_k_colorabilidad_bt(3, 0); // exploramos con k=3 y 0 arcos por nodo
+    //explora_k_colorabilidad_bt(3, 100*99/2/100); // exploramos con k=3 y completo
 
     for (int i = 0; i < MAX_NODOS; i++) {
         free(matriz[i]);
