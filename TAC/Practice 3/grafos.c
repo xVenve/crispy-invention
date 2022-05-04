@@ -16,6 +16,13 @@ int *matriz[MAX_NODOS];
 int clusters[MAX_NODOS];
 FILE *fptr;
 
+/**
+ * It's a wrapper for malloc() that prints an error message and exits if malloc() returns NULL
+ * 
+ * @param nbytes The number of bytes to allocate.
+ * 
+ * @return A pointer to the first byte of the allocated memory.
+ */
 char *mi_malloc(int nbytes) {
     char *p;
     static long int nb = 0L;
@@ -34,7 +41,10 @@ char *mi_malloc(int nbytes) {
     return p;
 }
 
-/* crea matriz: vector de punteros a vectores en memoria dinámica */
+/**
+ * It creates a matrix of MAX_NODOS x MAX_NODOS, and then assigns each row to a pointer in the array
+ * matriz
+ */
 void crear_matriz() {
     int i;
 
@@ -43,7 +53,11 @@ void crear_matriz() {
     }
 }
 
-/* 0 indica que no hay arista entre los nodos i-j */
+/**
+ * It initializes a matrix to all zeros
+ * 
+ * @param nodos number of nodes
+ */
 void inicializar_grafo(int nodos) {
     int i;
     int j;
@@ -55,8 +69,12 @@ void inicializar_grafo(int nodos) {
     }
 }
 
-/* crea grafo con n nodos y a arcos: no se controlan los limites */
-/* 1 indica que hay arista entre los nodos i-j */
+/**
+ * It creates a random graph with a given number of nodes and edges
+ * 
+ * @param nodos number of nodes
+ * @param arcos number of edges
+ */
 void crear_grafo(int nodos, int arcos) {
     int i;
     int p;
@@ -74,6 +92,14 @@ void crear_grafo(int nodos, int arcos) {
     }
 }
 
+/**
+ * It picks a random edge, and deletes it
+ * 
+ * @param nodos number of nodes
+ * @param arcos number of arcs
+ * 
+ * @return The number of arcs in the graph.
+ */
 int borrar_arco_aleatorio(int nodos, int arcos) {
     int p;
     int q;
@@ -93,8 +119,11 @@ int borrar_arco_aleatorio(int nodos, int arcos) {
     return arcos - 1;
 }
 
-/* imprime nodos del grafo en diagonal y en las intersecciones si son adyacentes */
-/* imprime antes el número de grafo inconexo (cluster) si está disponible */
+/**
+ * It prints the adjacency matrix of the graph
+ * 
+ * @param nodos number of nodes
+ */
 void imprimir_grafo(int nodos) {
     int i;
     int j;
@@ -114,7 +143,14 @@ void imprimir_grafo(int nodos) {
     }
 }
 
-/* para propagar recursivamente una marca (número de cluster) a los nodos adyacentes del nodo n */
+/**
+ * Takes in a number of nodes, a node, and a cluster number, and
+ * recursively propagates the cluster number to all adjacent nodes
+ * 
+ * @param nodos number of nodes
+ * @param n number of nodes
+ * @param n_cluster the number of the cluster
+ */
 void propagar_marcaR(int nodos, int n, int n_cluster) { // T(n) = 1 + 2 + n(3 + 3 + 1 + T(n-1))
     int j;
     cont += 2;
@@ -153,6 +189,11 @@ int contar_clusters(int nodos) { // T(n)=3 + 2 + n(3+ 1) + 1 + 2 + n(3 + 1 + 2 +
     return n_cluster;
 }
 
+/**
+ * It creates a complete graph, then removes edges at random until there are no edges left
+ * 
+ * @param nodos number of nodes
+ */
 void analizar_grafo(int nodos) {
     int arcos;
     int cluster0;
@@ -205,6 +246,12 @@ void analizar_grafo(int nodos) {
     fprintf(fptr, "Tiempo %3f \n", cpu_time_used);
 }
 
+/**
+ * It creates a graph with a given number of nodes and edges, and then counts the number of clusters in
+ * the graph
+ * 
+ * @param nodos number of nodes
+ */
 void prueba_empirico(int nodos) {
     int arcos;
     int cluster1;
@@ -231,6 +278,14 @@ void prueba_empirico(int nodos) {
     }
 }
 
+/**
+ * It returns the maximum of two integers
+ * 
+ * @param a The first number to compare.
+ * @param b the number of bits in the number
+ * 
+ * @return The maximum value between a and b.
+ */
 int maximo(int a, int b) {
     if (a > b)
         return (a);
@@ -238,6 +293,13 @@ int maximo(int a, int b) {
         return (b);
 }
 
+/**
+ * It takes a matrix of 0s and 1s and returns the number of clusters in the graph
+ * 
+ * @param nodos number of nodes
+ * 
+ * @return The number of clusters.
+ */
 int warshall(int nodos) {
     int i, j, k;
     for (k = 0; k <= nodos; k++)
@@ -259,6 +321,12 @@ int warshall(int nodos) {
     return n_cluster;
 }
 
+/**
+ * It creates a graph with a given number of nodes and edges, then it uses the Warshall algorithm to
+ * count the number of clusters in the graph
+ * 
+ * @param nodos number of nodes
+ */
 void prueba_empirico_w(int nodos) {
     int arcos;
     int cluster1;
@@ -284,6 +352,11 @@ void prueba_empirico_w(int nodos) {
     }
 }
 
+/**
+ * If the queue is not full, add the vertex to the end of the queue
+ * 
+ * @param vertex The vertex to be inserted into the queue.
+ */
 void insert_queue(int vertex) {
     if (rear == MAX_NODOS - 1)
         printf("Queue Overflow\n");
@@ -293,15 +366,25 @@ void insert_queue(int vertex) {
         rear = rear + 1;
         queue[rear] = vertex;
     }
-} /*End of insert_queue()*/
+}
 
+/**
+ * If the front of the queue is -1 or greater than the rear of the queue, then the queue is empty
+ * 
+ * @return 1 or 0
+ */
 int isEmpty_queue() {
     if (front == -1 || front > rear)
         return 1;
     else
         return 0;
-} /*End of isEmpty_queue()*/
+}
 
+/**
+ * If the queue is empty, exit the program. Otherwise, delete the first item in the queue and return it
+ * 
+ * @return The first item in the queue.
+ */
 int delete_queue() {
     int del_item;
     if (front == -1 || front > rear) {
@@ -313,8 +396,17 @@ int delete_queue() {
     front = front + 1;
     return del_item;
 
-} /*End of delete_queue() */
+}
 
+/**
+ * BFS(v, component_Num, nodos) is a function that takes a vertex v, a component number component_Num,
+ * and the number of vertices in the graph nodos, and performs a breadth-first search on the graph,
+ * marking all vertices in the same connected component as v with the component number component_Num
+ * 
+ * @param v the vertex to start the BFS from
+ * @param component_Num The number of the component that is being visited.
+ * @param nodos number of nodes
+ */
 void BFS(int v, int component_Num, int nodos) {
     int i;
 
@@ -334,8 +426,15 @@ void BFS(int v, int component_Num, int nodos) {
             }
         }
     }
-} /*End of BFS()*/
+}
 
+/**
+ * It takes a graph and returns the number of connected components in it
+ * 
+ * @param nodos number of nodes
+ * 
+ * @return The number of components.
+ */
 int BF_Traversal(int nodos) {
     int v, components = 0;
     front = -1;
@@ -356,8 +455,14 @@ int BF_Traversal(int nodos) {
         }
     }
     return components;
-} /*End of BF_Traversal()*/
+}
 
+/**
+ * It creates a graph with a given number of nodes and edges, and then it runs a BFS algorithm on the
+ * graph
+ * 
+ * @param nodos number of nodes
+ */
 void prueba_empirico_bfs(int nodos) {
     int arcos;
     int cluster1;
@@ -396,16 +501,16 @@ int main(void) {
 
     crear_matriz();
     /* Datos para diferencias finitas
-    crear_grafo(MAX_NODOS, MAX_NODOS * (MAX_NODOS - 1) / 2);
-    for (int i = 1; i < 101; i++) {
-        for (int j = 1; j <= i; j++) {
-            clusters[i] = -1;
-        }
-        cont = 0;
-        //propagar_marcaR(i, 0, 1);
-        contar_clusters(i);
-        printf("%d\n", cont);
-    }
+      crear_grafo(MAX_NODOS, MAX_NODOS * (MAX_NODOS - 1) / 2);
+      for (int i = 1; i < 101; i++) {
+          for (int j = 1; j <= i; j++) {
+              clusters[i] = -1;
+          }
+          cont = 0;
+          //propagar_marcaR(i, 0, 1);
+          contar_clusters(i);
+          printf("%d\n", cont);
+      }
     */
     // analizar_grafo(512);
     // prueba_empirico(0);
