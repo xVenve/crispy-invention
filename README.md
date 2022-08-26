@@ -55,11 +55,11 @@ This way, each step will be registered and only one final file.
 
 ### First semester
 
-* [Artificial neural networks](https://github.com/xVenve/crispy-invention/tree/master/RNA)
-* [Genetic and evolutionary algorithms](https://github.com/xVenve/crispy-invention/tree/master/AGE)
+* [Artificial Neural Networks](https://github.com/xVenve/crispy-invention/tree/master/RNA)
+* [Genetic and Evolutionary Algorithms](https://github.com/xVenve/crispy-invention/tree/master/AGE)
 * [Knowledge Engineering](https://github.com/xVenve/crispy-invention/tree/master/IC)
 
 ### Second semester
 
-* [Advanced theory of computation](https://github.com/xVenve/crispy-invention/tree/master/TAC)
+* [Advanced Theory of Computation](https://github.com/xVenve/crispy-invention/tree/master/TAC)
 * [Computer Graphics](https://github.com/xVenve/crispy-invention/tree/master/IG)
