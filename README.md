@@ -7,6 +7,8 @@ This is a way to keep all the code up to date to see the modifications.
 **Go committing** with the changes, and at the end of the session do **pull** in case there is any file without updating and **push** to upload the commits.
 This way, each step will be registered and only one final file.
 
+![Alt](https://repobeats.axiom.co/api/embed/1002c0ba8da287fd615374e347b19f7cbed1ce3c.svg "Repobeats analytics image")
+
 ## First course
 
 ### First semester
