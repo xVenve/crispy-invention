@@ -24,7 +24,7 @@ export class AppComponent {
     carCondition.BAD
   );
   Car2 = new Car(
-    '', //'https://avtotachki.com/wp-content/uploads/2020/05/citroen-c3-1-2-puretech-68-l-s-5-mkp-1.jpg',
+    'https://avtotachki.com/wp-content/uploads/2020/05/citroen-c3-1-2-puretech-68-l-s-5-mkp-1.jpg',
     'Citroen',
     'C3',
     new Date(2016, 2, 1),
@@ -42,7 +42,7 @@ export class AppComponent {
     carCondition.GOOD
   );
   Car4 = new Car(
-    'https://www.lloydmotorgroup.com/ImageLibrary/Vehicle/526629-LwY3ZPABjEGguuRwf8sBNw.jpg',
+    '', // 'https://www.lloydmotorgroup.com/ImageLibrary/Vehicle/526629-LwY3ZPABjEGguuRwf8sBNw.jpg',
     'Ford',
     'Fiesta',
     new Date(2017, 12, 6),
@@ -60,13 +60,7 @@ export class AppComponent {
     carCondition.BAD
   );
 
-  cars: Car[] = [
-    this.Car1,
-    this.Car2,
-    this.Car3,
-    this.Car4,
-    this.Car5,
-  ];
+  cars: Car[] = [this.Car1, this.Car2, this.Car3, this.Car4, this.Car5];
 
   public sold(i: number) {
     this.cars.splice(i, 1);

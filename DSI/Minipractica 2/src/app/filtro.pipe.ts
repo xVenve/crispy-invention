@@ -2,16 +2,16 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Car } from './car';
 
 @Pipe({
-  name: 'filter',
+  name: 'filtroPorMarca',
 })
 export class FiltroPipe implements PipeTransform {
-  transform(value: Car[], input: string): Car[] {
+  transform(items: Car[], input: string): Car[] {
     if (input) {
-      return value.filter((car) =>
+      return items.filter((car) =>
         car.brand.toLocaleLowerCase().includes(input.toLocaleLowerCase())
       );
     } else {
-      return value;
+      return items;
     }
   }
 }

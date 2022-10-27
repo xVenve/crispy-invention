@@ -21,7 +21,7 @@
         <th>PVP</th>
         <th>Actions</th>
       </tr>
-      <tr *ngFor="let car of cars | filter: brandToFilter; let i = index">
+      <tr *ngFor="let car of cars | filtroPorMarca: brandToFilter; let i = index">
         <td>
           <p *ngIf="car.pic==''">(no photo!)</p>
           <img *ngIf="car.pic!=''" src="{{ car.pic }}" id="carpic" />
